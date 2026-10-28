@@ -49,6 +49,10 @@
   color: #fff;
 }
 
+.show-more {
+  margin-top: var(--space-4);
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;

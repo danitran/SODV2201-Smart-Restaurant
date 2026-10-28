@@ -15,7 +15,9 @@
  *   /account        Account (protected: signed-in users only)
  *
  *   /admin/...      admin pages inside <AdminLayout /> (protected: role "admin")
- *     /admin/menu   AdminMenu (create, edit, delete dishes, availability, special)
+ *     /admin/orders        AdminOrders (kitchen board, status updates, history)
+ *     /admin/reservations  AdminReservations (approve or cancel bookings)
+ *     /admin/menu          AdminMenu (create, edit, delete dishes, availability, special)
  *   *               NotFound (any URL that matches nothing else)
  */
 import { Route, Routes } from 'react-router'
@@ -25,6 +27,8 @@ import { ProtectedRoute } from './components/common/ProtectedRoute.jsx'
 import Home from './pages/Home.jsx'
 import Account from './pages/Account.jsx'
 import AdminMenu from './pages/admin/AdminMenu.jsx'
+import AdminOrders from './pages/admin/AdminOrders.jsx'
+import AdminReservations from './pages/admin/AdminReservations.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Menu from './pages/Menu.jsx'
@@ -67,6 +71,8 @@ export default function App() {
           </ProtectedRoute>
         }
       >
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="reservations" element={<AdminReservations />} />
         <Route path="menu" element={<AdminMenu />} />
       </Route>
     </Routes>

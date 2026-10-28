@@ -12,7 +12,7 @@ import { useAuth } from '../../context/AuthContext.js'
 import { useRestaurant } from '../../context/RestaurantContext.js'
 import { useToast } from '../../context/ToastContext.js'
 import { describeBooking } from '../../services/reservationService.js'
-import { formatDate, formatPrice, formatTime } from '../../utils/format.js'
+import { formatDate, formatPrice, formatTime, pluralize } from '../../utils/format.js'
 import { ErrorBoundary } from '../common/ErrorBoundary.jsx'
 import { Icon, LogoMark } from '../common/Icon.jsx'
 
@@ -30,7 +30,8 @@ function NewActivityWatcher() {
     for (const order of orders) {
       if (seen.current.has(order.id)) continue
       seen.current.add(order.id)
-      showToast(`${order.id}: ${order.items.length} dishes, ${formatPrice(order.total)}, ${order.type}.`, {
+      const dishes = pluralize(order.items.reduce((sum, line) => sum + line.quantity, 0), 'dish', 'dishes')
+      showToast(`${order.id}: ${dishes}, ${formatPrice(order.total)}, ${order.type}.`, {
         type: 'info',
         title: 'New order',
       })
