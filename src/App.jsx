@@ -15,6 +15,7 @@
  *   /account        Account (protected: signed-in users only)
  *
  *   /admin/...      admin pages inside <AdminLayout /> (protected: role "admin")
+ *     /admin               AdminDashboard (stats, charts, feedback summary)
  *     /admin/orders        AdminOrders (kitchen board, status updates, history)
  *     /admin/reservations  AdminReservations (approve or cancel bookings)
  *     /admin/menu          AdminMenu (create, edit, delete dishes, availability, special)
@@ -26,6 +27,7 @@ import { CustomerLayout } from './components/layout/CustomerLayout.jsx'
 import { ProtectedRoute } from './components/common/ProtectedRoute.jsx'
 import Home from './pages/Home.jsx'
 import Account from './pages/Account.jsx'
+import AdminDashboard from './pages/admin/AdminDashboard.jsx'
 import AdminMenu from './pages/admin/AdminMenu.jsx'
 import AdminOrders from './pages/admin/AdminOrders.jsx'
 import AdminReservations from './pages/admin/AdminReservations.jsx'
@@ -71,6 +73,7 @@ export default function App() {
           </ProtectedRoute>
         }
       >
+        <Route index element={<AdminDashboard />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="reservations" element={<AdminReservations />} />
         <Route path="menu" element={<AdminMenu />} />

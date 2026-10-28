@@ -138,3 +138,31 @@ export function summarizeFeedback(feedback) {
   const recent = [...feedback].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 4)
   return { count, average, distribution, praise, complaints, summary, recent }
 }
+
+/** Orders placed in the last `days` days, today included. */
+export function getOrdersInLastDays(orders, days, now = new Date()) {
+  const firstDay = toDateInputValue(addDays(now, -(days - 1)))
+  return orders.filter((order) => dayKey(order.createdAt) >= firstDay)
+}
+
+/** Feedback written in the last `days` days, today included. */
+export function getFeedbackInLastDays(feedback, days, now = new Date()) {
+  const firstDay = toDateInputValue(addDays(now, -(days - 1)))
+  return feedback.filter((entry) => dayKey(entry.createdAt) >= firstDay)
+}
+
+/**
+ * Round axis ticks for a chart whose largest value is `max`:
+ * getNiceTicks(37) → [0, 10, 20, 30, 40]
+ */
+export function getNiceTicks(max, approxCount = 4) {
+  if (max <= 0) return [0, 1]
+  const rough = max / approxCount
+  const magnitude = 10 ** Math.floor(Math.log10(rough))
+  const residual = rough / magnitude
+  const step = (residual <= 1 ? 1 : residual <= 2 ? 2 : residual <= 5 ? 5 : 10) * magnitude
+  const top = Math.ceil(max / step) * step
+  const ticks = []
+  for (let value = 0; value <= top + step / 2; value += step) ticks.push(Math.round(value * 100) / 100)
+  return ticks
+}

@@ -118,7 +118,7 @@ export function createSeedDatabase(now = new Date()) {
   const users = [
     {
       id: ADMIN_ID,
-      name: 'Restaurant Admin',
+      name: 'Jordan Lee',
       email: DEMO_ACCOUNTS.admin.email,
       phone: '403-555-0100',
       address: '',

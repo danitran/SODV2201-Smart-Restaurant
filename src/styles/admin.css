@@ -545,7 +545,7 @@
 
 .chart-tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(var(--bar-height) + 10px);
   z-index: 5;
   display: grid;
   gap: 2px;
@@ -575,7 +575,7 @@
 
 .hbar {
   display: grid;
-  grid-template-columns: minmax(0, 150px) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-3);
   font-size: var(--text-sm);
@@ -588,15 +588,21 @@
 }
 
 .hbar__track {
+  display: block;
   height: 14px;
 }
 
 .hbar__fill {
+  display: block;
   width: var(--bar-width);
   min-width: 2px;
   height: 100%;
   border-radius: 0 4px 4px 0;
   background: var(--color-tomato);
+}
+
+.hbar__fill.is-zero {
+  min-width: 0;
 }
 
 .hbar__fill--rating {
@@ -622,6 +628,19 @@
 
 .table-toggle table {
   margin-top: var(--space-2);
+}
+
+.feedback-panel {
+  margin-top: var(--space-4);
+}
+
+.feedback-panel h3 {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.feedback-panel h3:first-child {
+  margin-top: 0;
 }
 
 .feedback-grid {
