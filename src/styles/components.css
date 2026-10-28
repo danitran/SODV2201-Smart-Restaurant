@@ -143,6 +143,12 @@
   cursor: pointer;
 }
 
+@media (max-width: 560px) {
+  .toast-stack {
+    bottom: 84px; /* stay above the chat button */
+  }
+}
+
 @keyframes toast-in {
   from {
     transform: translateY(10px);

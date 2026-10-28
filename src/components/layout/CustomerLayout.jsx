@@ -5,6 +5,7 @@
  * footer and the update watcher stay mounted while pages change.
  *
  * Also inside:
+ *   - ChatWidget: the AI assistant, available on every customer page
  *   - ScrollToTop: jump to the top when the URL changes
  *   - UpdateWatcher: pops up a toast when the restaurant changes one of this
  *     customer's orders or bookings (for example from the admin tab)
@@ -14,6 +15,7 @@ import { Outlet, useLocation } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'
 import { useRestaurant } from '../../context/RestaurantContext.js'
 import { useToast } from '../../context/ToastContext.js'
+import { ChatWidget } from '../chat/ChatWidget.jsx'
 import { ErrorBoundary } from '../common/ErrorBoundary.jsx'
 import { Footer } from './Footer.jsx'
 import { Navbar } from './Navbar.jsx'
@@ -67,6 +69,7 @@ export function CustomerLayout() {
         </ErrorBoundary>
       </main>
       <Footer />
+      <ChatWidget />
     </>
   )
 }
