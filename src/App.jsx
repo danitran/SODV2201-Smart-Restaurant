@@ -10,6 +10,7 @@
  *   /cart           Cart (change quantities, delivery or pickup)
  *   /checkout       Checkout form
  *   /orders/:orderId OrderStatus (confirmation + live tracking)
+ *   /reservations   Reservations (tables and special events)
  *   *               NotFound (any URL that matches nothing else)
  */
 import { Route, Routes } from 'react-router'
@@ -21,6 +22,7 @@ import Menu from './pages/Menu.jsx'
 import MenuItemDetail from './pages/MenuItemDetail.jsx'
 import NotFound from './pages/NotFound.jsx'
 import OrderStatus from './pages/OrderStatus.jsx'
+import Reservations from './pages/Reservations.jsx'
 
 export default function App() {
   return (
@@ -32,6 +34,7 @@ export default function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="orders/:orderId" element={<OrderStatus />} />
+        <Route path="reservations" element={<Reservations />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

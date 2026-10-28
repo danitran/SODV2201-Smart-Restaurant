@@ -1,0 +1,82 @@
+/*
+ * reservations.css — booking confirmation and the list of bookings.
+ */
+.booking-done {
+  text-align: center;
+}
+
+.booking-done__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-3);
+  border-radius: 50%;
+  background: var(--color-basil-tint);
+  color: var(--color-basil-dark);
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.booking-done__code {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border: 2px dashed var(--color-line-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ticket);
+}
+
+.booking-list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.booking {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.booking.is-past {
+  opacity: 0.65;
+}
+
+.booking__when {
+  display: grid;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-chalk);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.booking__info {
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+}
+
+.booking__what {
+  font-weight: 650;
+}
+
+.booking__what::first-letter {
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .booking {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  .booking .button {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
