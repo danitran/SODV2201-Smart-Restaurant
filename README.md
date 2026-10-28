@@ -13,6 +13,12 @@ Assignment 1 is the front end: data is kept in the browser (localStorage) behind
 an async service layer that is ready to be pointed at a Node.js back end in the
 next assignment.
 
+| Customer | Admin |
+|---|---|
+| ![Home page with today's special](docs/screenshots/home.png) | ![Admin dashboard with charts and feedback summary](docs/screenshots/admin-dashboard.png) |
+| ![Menu filtered to vegetarian dishes](docs/screenshots/menu.png) | ![Kitchen board with order tickets](docs/screenshots/admin-orders.png) |
+| ![Live order tracking](docs/screenshots/order-tracking.png) | ![AI assistant answering sample questions](docs/screenshots/assistant.png) |
+
 ---
 
 ## How to run
