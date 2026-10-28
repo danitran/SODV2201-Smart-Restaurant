@@ -1,14 +1,24 @@
 /**
- * App.jsx — root component.
- * The Vite counter demo was removed. Routes and pages are added next.
+ * App.jsx — the route table (React Router).
+ *
+ * Layout routes: <CustomerLayout /> draws the header and footer once and
+ * renders the matching child page in its <Outlet />.
+ *
+ *   /    Home
+ *   *    NotFound (any URL that matches nothing else)
  */
-function App() {
+import { Route, Routes } from 'react-router'
+import { CustomerLayout } from './components/layout/CustomerLayout.jsx'
+import Home from './pages/Home.jsx'
+import NotFound from './pages/NotFound.jsx'
+
+export default function App() {
   return (
-    <main>
-      <h1>Basil &amp; Brick</h1>
-      <p>Smart Restaurant Management System, coming together step by step.</p>
-    </main>
+    <Routes>
+      <Route element={<CustomerLayout />}>
+        <Route index element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App
