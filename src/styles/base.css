@@ -264,6 +264,10 @@ fieldset {
   min-width: 0;
 }
 
+legend {
+  padding: 0;
+}
+
 .choice-row {
   display: flex;
   flex-wrap: wrap;
