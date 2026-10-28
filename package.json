@@ -1,23 +1,32 @@
 {
   "name": "sodv2201-smart-restaurant",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Smart Restaurant Management System - SODV2201 Final Project (Assignment 1): React front end with menu, ordering, reservations, admin dashboard and a simulated AI assistant.",
+  "author": "Tai Tran",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router": "^8.5.1"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.89.0",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
   }
 }
