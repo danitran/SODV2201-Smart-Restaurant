@@ -5,6 +5,8 @@
  * are looked up in the live menu every render, so if an admin changes a price
  * or marks a dish sold out, the cart shows it straight away.
  * The cart is saved in localStorage so it survives a page refresh.
+ * It also remembers whether the customer wants delivery or pickup
+ * (orderType), because the delivery fee changes the totals on every page.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CartContext } from './CartContext.js'
@@ -13,6 +15,7 @@ import { readJSON, writeJSON } from '../services/storage.js'
 import { PRICING } from '../data/restaurantInfo.js'
 
 const CART_KEY = 'basil-brick:cart'
+const ORDER_TYPE_KEY = 'basil-brick:order-type'
 const clamp = (quantity) => Math.min(PRICING.maxQuantityPerItem, Math.max(0, Math.round(quantity)))
 
 export function CartProvider({ children }) {
@@ -22,14 +25,19 @@ export function CartProvider({ children }) {
     return Array.isArray(saved) ? saved : []
   })
 
-  // Save the cart whenever it changes.
+  const [orderType, setOrderType] = useState(() =>
+    readJSON(ORDER_TYPE_KEY, 'delivery') === 'pickup' ? 'pickup' : 'delivery',
+  )
+
+  // Save the cart and the order type whenever they change.
   useEffect(() => {
     try {
       writeJSON(CART_KEY, entries)
+      writeJSON(ORDER_TYPE_KEY, orderType)
     } catch {
       // The cart still works for this visit even if it cannot be saved.
     }
-  }, [entries])
+  }, [entries, orderType])
 
   const addItem = useCallback((itemId, quantity = 1) => {
     setEntries((current) => {
@@ -81,12 +89,14 @@ export function CartProvider({ children }) {
       itemCount: lines.reduce((sum, line) => sum + line.quantity, 0),
       blockedLines: lines.filter((line) => !line.isOrderable),
       getQuantity: (itemId) => entries.find((entry) => entry.itemId === itemId)?.quantity ?? 0,
+      orderType,
+      setOrderType,
       addItem,
       updateQuantity,
       removeItem,
       clearCart,
     }),
-    [lines, entries, addItem, updateQuantity, removeItem, clearCart],
+    [lines, entries, orderType, addItem, updateQuantity, removeItem, clearCart],
   )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

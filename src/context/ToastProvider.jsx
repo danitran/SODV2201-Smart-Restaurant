@@ -23,8 +23,11 @@ export function ToastProvider({ children }) {
   const showToast = useCallback(
     (message, { type = 'success', title = '' } = {}) => {
       const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
-      // Keep at most 4 toasts on screen.
-      setToasts((current) => [...current.slice(-3), { id, title, message, type }])
+      // Replace an identical message instead of stacking it, and keep at most 3 on screen.
+      setToasts((current) => [
+        ...current.filter((toast) => toast.message !== message).slice(-2),
+        { id, title, message, type },
+      ])
       timers.current.set(id, setTimeout(() => dismissToast(id), DURATION_MS))
     },
     [dismissToast],

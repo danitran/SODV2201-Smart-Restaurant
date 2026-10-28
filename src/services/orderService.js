@@ -22,7 +22,7 @@ export function getStatusLabel(status, type = 'delivery') {
   const labels = {
     pending: 'Order received',
     preparing: 'Preparing',
-    ready: type === 'pickup' ? 'Ready for pickup' : 'Ready, driver on the way',
+    ready: type === 'pickup' ? 'Ready for pickup' : 'On the way',
     delivered: type === 'pickup' ? 'Picked up' : 'Delivered',
     cancelled: 'Cancelled',
   }
