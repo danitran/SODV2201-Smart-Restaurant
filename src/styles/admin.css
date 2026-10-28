@@ -1,0 +1,659 @@
+/*
+ * admin.css — staff dashboard: toolbars, tables, the kitchen board of order
+ * tickets, reservation cards, stat tiles and charts.
+ */
+.admin-page .page-header {
+  margin-bottom: var(--space-4);
+}
+
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.admin-toolbar .search-input {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+
+.admin-toolbar select {
+  width: auto;
+  min-width: 170px;
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.segmented button {
+  padding: 6px 14px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-ink-soft);
+  font: inherit;
+  font-weight: 650;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.segmented button[aria-pressed='true'] {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+/* ── Tables ───────────────────────────────────────────────────────────── */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.admin-table th {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-linen);
+  color: var(--color-ink-soft);
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.admin-table tr.is-muted .dish-cell {
+  opacity: 0.6;
+}
+
+.dish-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 220px;
+}
+
+.dish-cell > div {
+  display: grid;
+  gap: 4px;
+}
+
+.dish-tile--small {
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+}
+
+.row-actions {
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Toggle switch (a styled checkbox with role="switch") */
+.switch {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.switch__track {
+  width: 44px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-strong);
+  transition: background-color 0.15s ease;
+}
+
+.switch__track::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+
+.switch input:checked + .switch__track {
+  background: var(--color-basil);
+}
+
+.switch input:checked + .switch__track::after {
+  transform: translateX(20px);
+}
+
+.switch input:focus-visible + .switch__track {
+  box-shadow: var(--focus-ring);
+}
+
+/* ── Kitchen board: order tickets on a rail ───────────────────────────── */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.board__column {
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: #e9ece7;
+}
+
+.board__column h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--space-1) var(--space-1) var(--space-3);
+  font-size: var(--text-base);
+}
+
+.board__count {
+  min-width: 26px;
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.board__list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.board__empty {
+  padding: var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.ticket {
+  padding: var(--space-4);
+  border-top: 5px solid var(--color-ink);
+  border-radius: 4px 4px var(--radius-md) var(--radius-md);
+  background: #fffef9;
+  box-shadow: var(--shadow-ticket);
+  font-size: var(--text-sm);
+}
+
+.ticket.is-new {
+  border-top-color: var(--color-tomato);
+  animation: ticket-in 0.4s ease-out;
+}
+
+@keyframes ticket-in {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}
+
+.ticket__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ticket__id {
+  font-family: var(--font-ticket);
+  font-weight: 800;
+  font-size: var(--text-base);
+}
+
+.ticket__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+  color: var(--color-ink-soft);
+}
+
+.ticket__items {
+  display: grid;
+  gap: 2px;
+  margin: var(--space-2) 0;
+  padding: var(--space-2) 0;
+  border-block: 1px dashed var(--color-line-strong);
+  list-style: none;
+  font-family: var(--font-ticket);
+}
+
+.ticket__notes {
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-parmesan-tint);
+  color: var(--color-amber);
+  font-weight: 600;
+}
+
+.ticket__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.ticket__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag-new {
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-tomato);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+
+.done-today {
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 1100px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Reservation cards ────────────────────────────────────────────────── */
+.day-group + .day-group {
+  margin-top: var(--space-5);
+}
+
+.day-group h2 {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-base);
+}
+
+.res-card {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.res-card + .res-card {
+  margin-top: var(--space-3);
+}
+
+.res-card.is-event {
+  border-left: 5px solid var(--color-parmesan);
+}
+
+.res-card__time {
+  font-family: var(--font-ticket);
+  font-weight: 800;
+  font-size: var(--text-lg);
+}
+
+.res-card__body {
+  display: grid;
+  gap: 4px;
+  font-size: var(--text-sm);
+}
+
+.res-card__title {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.res-card__request {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-linen);
+}
+
+.res-card__actions {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .res-card {
+    grid-template-columns: 1fr;
+  }
+
+  .res-card__actions {
+    justify-items: start;
+    grid-auto-flow: column;
+  }
+}
+
+/* ── Dashboard ────────────────────────────────────────────────────────── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.stat {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.stat__label {
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+}
+
+.stat__value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.stat__note {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.stat a {
+  font-size: var(--text-xs);
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 var(--space-4);
+}
+
+.filter-row h2 {
+  margin: 0 auto 0 0;
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.dash-grid .panel + .panel {
+  margin-top: 0;
+}
+
+.chart-caption {
+  margin: 0 0 var(--space-4);
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 1100px) {
+  .stat-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Column chart (orders per day / week): one series, one colour. */
+.column-chart {
+  margin: 0;
+}
+
+.column-chart__plot {
+  position: relative;
+  height: 200px;
+  margin-left: 36px;
+}
+
+.column-chart__grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.column-chart__grid span {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: -0.65em;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.column-chart__bars {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.column-chart__col {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: default;
+}
+
+.column-chart__col:hover,
+.column-chart__col:focus-visible {
+  background: rgba(30, 43, 36, 0.04);
+  border-radius: var(--radius-sm);
+}
+
+.column-chart__bar {
+  width: min(24px, 60%);
+  min-height: 2px;
+  height: var(--bar-height);
+  border-radius: 4px 4px 0 0;
+  background: var(--color-basil);
+}
+
+.column-chart__col:hover .column-chart__bar,
+.column-chart__col:focus-visible .column-chart__bar {
+  background: var(--color-basil-dark);
+}
+
+.column-chart__value {
+  position: absolute;
+  bottom: calc(var(--bar-height) + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.column-chart__labels {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  margin: var(--space-2) 0 0 36px;
+  color: var(--color-ink-soft);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.chart-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  z-index: 5;
+  display: grid;
+  gap: 2px;
+  min-width: 140px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-ink);
+  color: #fff;
+  font-size: var(--text-xs);
+  text-align: left;
+  pointer-events: none;
+  transform: translateX(-50%);
+  left: 50%;
+  white-space: nowrap;
+}
+
+.chart-tooltip strong {
+  font-size: var(--text-sm);
+}
+
+/* Horizontal bars (popular dishes, star ratings) */
+.hbar-list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.hbar {
+  display: grid;
+  grid-template-columns: minmax(0, 150px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.hbar__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hbar__track {
+  height: 14px;
+}
+
+.hbar__fill {
+  width: var(--bar-width);
+  min-width: 2px;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--color-tomato);
+}
+
+.hbar__fill--rating {
+  background: var(--color-parmesan);
+}
+
+.hbar__value {
+  min-width: 2.5ch;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-toggle {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.table-toggle summary {
+  color: var(--color-tomato-dark);
+  cursor: pointer;
+}
+
+.table-toggle table {
+  margin-top: var(--space-2);
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-6);
+}
+
+.rating-big {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.theme-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  list-style: none;
+}
+
+.quote-list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.quote-list li {
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--color-line-strong);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 760px) {
+  .feedback-grid {
+    grid-template-columns: 1fr;
+  }
+}

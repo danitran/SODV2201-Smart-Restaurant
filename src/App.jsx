@@ -13,13 +13,18 @@
  *   /reservations   Reservations (tables and special events)
  *   /login, /register  sign in / create an account
  *   /account        Account (protected: signed-in users only)
+ *
+ *   /admin/...      admin pages inside <AdminLayout /> (protected: role "admin")
+ *     /admin/menu   AdminMenu (create, edit, delete dishes, availability, special)
  *   *               NotFound (any URL that matches nothing else)
  */
 import { Route, Routes } from 'react-router'
+import { AdminLayout } from './components/layout/AdminLayout.jsx'
 import { CustomerLayout } from './components/layout/CustomerLayout.jsx'
 import { ProtectedRoute } from './components/common/ProtectedRoute.jsx'
 import Home from './pages/Home.jsx'
 import Account from './pages/Account.jsx'
+import AdminMenu from './pages/admin/AdminMenu.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Menu from './pages/Menu.jsx'
@@ -52,6 +57,17 @@ export default function App() {
           }
         />
         <Route path="*" element={<NotFound />} />
+      </Route>
+
+      <Route
+        path="admin"
+        element={
+          <ProtectedRoute role="admin">
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="menu" element={<AdminMenu />} />
       </Route>
     </Routes>
   )
