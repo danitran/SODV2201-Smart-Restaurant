@@ -11,17 +11,23 @@
  *   /checkout       Checkout form
  *   /orders/:orderId OrderStatus (confirmation + live tracking)
  *   /reservations   Reservations (tables and special events)
+ *   /login, /register  sign in / create an account
+ *   /account        Account (protected: signed-in users only)
  *   *               NotFound (any URL that matches nothing else)
  */
 import { Route, Routes } from 'react-router'
 import { CustomerLayout } from './components/layout/CustomerLayout.jsx'
+import { ProtectedRoute } from './components/common/ProtectedRoute.jsx'
 import Home from './pages/Home.jsx'
+import Account from './pages/Account.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Menu from './pages/Menu.jsx'
 import MenuItemDetail from './pages/MenuItemDetail.jsx'
+import Login from './pages/Login.jsx'
 import NotFound from './pages/NotFound.jsx'
 import OrderStatus from './pages/OrderStatus.jsx'
+import Register from './pages/Register.jsx'
 import Reservations from './pages/Reservations.jsx'
 
 export default function App() {
@@ -35,6 +41,16 @@ export default function App() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="orders/:orderId" element={<OrderStatus />} />
         <Route path="reservations" element={<Reservations />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route
+          path="account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
