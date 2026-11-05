@@ -1,0 +1,179 @@
+.tilt {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tilt[data-tilting] {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(14px);
+  transition:
+    transform 0.12s ease-out,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tilt .gilt-frame {
+  transform-style: preserve-3d;
+}
+
+.tilt .dish-card__price,
+.tilt .dish-card__flag {
+  transform: translateZ(40px);
+}
+
+.tilt .special__price {
+  transform: translateZ(70px);
+}
+
+.tilt .gilt-frame::before {
+  transform: translateZ(-34px);
+}
+
+.glare {
+  position: relative;
+  display: block;
+}
+
+.glare::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 240, 210, 0.38), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.dish-card__media.glare::after {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.gilt-frame.glare::after {
+  border-radius: var(--radius-md);
+}
+
+.tilt[data-tilting] .glare::after {
+  opacity: 1;
+}
+
+.has-3d-cursor,
+.has-3d-cursor * {
+  cursor: none !important;
+}
+
+.has-3d-cursor :is(input:not([type='checkbox'], [type='radio'], [type='range']), textarea) {
+  cursor: text !important;
+}
+
+.cursor {
+  display: none;
+}
+
+.has-3d-cursor .cursor {
+  display: block;
+}
+
+.cursor__ring,
+.cursor__dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-ready .cursor__ring,
+.cursor-ready .cursor__dot {
+  opacity: 1;
+}
+
+.cursor__ring {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  transform-style: preserve-3d;
+}
+
+.cursor__halo,
+.cursor__orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.cursor__halo {
+  background: rgba(214, 178, 94, 0.12);
+  transform: translateZ(-12px) scale(0.75);
+}
+
+.cursor__orbit {
+  border: 1.5px solid var(--gold-400);
+  transform: translateZ(14px);
+  box-shadow: 0 0 18px -4px rgba(214, 178, 94, 0.55);
+}
+
+.cursor__label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--gold-200);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transform: translateZ(18px);
+  transition: opacity 0.2s ease;
+}
+
+.cursor__dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--gold-300);
+}
+
+.cursor__ring[data-mode='link'] .cursor__orbit {
+  border-color: var(--gold-300);
+  transform: translateZ(14px) scale(1.45);
+}
+
+.cursor__ring[data-mode='link'] .cursor__halo {
+  background: rgba(214, 178, 94, 0.18);
+  transform: translateZ(-12px) scale(1.3);
+}
+
+.cursor__ring[data-mode='view'] .cursor__orbit {
+  transform: translateZ(14px) scale(2.1);
+}
+
+.cursor__ring[data-mode='view'] .cursor__halo {
+  background: rgba(10, 20, 41, 0.8);
+  transform: translateZ(-12px) scale(2);
+}
+
+.cursor__ring[data-mode='view'] .cursor__label {
+  opacity: 1;
+}
+
+.cursor__ring.is-pressed .cursor__orbit {
+  transform: translateZ(14px) scale(0.8);
+}
+
+.cursor-ready .cursor__dot[data-mode='link'],
+.cursor-ready .cursor__dot[data-mode='view'],
+.cursor-ready [data-mode='text'],
+.cursor-ready [data-mode='native'] {
+  opacity: 0;
+}

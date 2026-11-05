@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext.js'
 import { useRestaurant } from '../../context/RestaurantContext.js'
 import { useToast } from '../../context/ToastContext.js'
 import { ChatWidget } from '../chat/ChatWidget.jsx'
+import { Cursor3D } from '../common/Cursor3D.jsx'
 import { ErrorBoundary } from '../common/ErrorBoundary.jsx'
 import { Footer } from './Footer.jsx'
 import { Navbar } from './Navbar.jsx'
@@ -56,6 +57,7 @@ export function CustomerLayout() {
       </main>
       <Footer />
       <ChatWidget />
+      <Cursor3D />
     </>
   )
 }

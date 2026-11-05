@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext.js'
 import { useRestaurant } from '../context/RestaurantContext.js'
 import { useToast } from '../context/ToastContext.js'
 import { PRICING, RESTAURANT } from '../data/restaurantInfo.js'
+import { useTilt } from '../hooks/useTilt.js'
 import { getPopularItems } from '../utils/analytics.js'
 import { formatPrice } from '../utils/format.js'
 import { DishImage } from '../components/common/DishImage.jsx'
@@ -10,11 +11,12 @@ import { Icon } from '../components/common/Icon.jsx'
 import { DishCard } from '../components/menu/DishCard.jsx'
 
 function SpecialFeature({ dish, isSpecial, onAdd }) {
+  const stageRef = useTilt(9)
   if (!dish) return null
   return (
     <figure className="special">
-      <div className="special__stage">
-        <Link to={`/menu/${dish.id}`} className="special__media gilt-frame" tabIndex={-1} aria-hidden="true" data-cursor="view">
+      <div ref={stageRef} className="special__stage tilt">
+        <Link to={`/menu/${dish.id}`} className="special__media gilt-frame glare" tabIndex={-1} aria-hidden="true" data-cursor="view">
           <DishImage item={dish} loading="eager" sizes="(max-width: 900px) 92vw, 480px" />
         </Link>
         <span className="special__price">{formatPrice(dish.price)}</span>

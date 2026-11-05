@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext.js'
 import { useRestaurant } from '../context/RestaurantContext.js'
 import { useToast } from '../context/ToastContext.js'
 import { CATEGORIES, DIETARY_TAGS } from '../data/restaurantInfo.js'
+import { useTilt } from '../hooks/useTilt.js'
 import { formatPrice } from '../utils/format.js'
 import { DishBadges } from '../components/common/Badges.jsx'
 import { DishImage } from '../components/common/DishImage.jsx'
@@ -17,6 +18,7 @@ export default function MenuItemDetail() {
   const { addItem, getQuantity } = useCart()
   const { showToast } = useToast()
   const [quantity, setQuantity] = useState(1)
+  const artRef = useTilt(6)
 
   const item = menu.find((menuItem) => menuItem.id === itemId)
 
@@ -55,7 +57,7 @@ export default function MenuItemDetail() {
       </Link>
 
       <article className="dish-detail">
-        <div className="dish-detail__art gilt-frame">
+        <div ref={artRef} className="dish-detail__art gilt-frame glare tilt">
           <DishImage item={item} alt={item.name} loading="eager" sizes="(max-width: 800px) 100vw, 520px" />
         </div>
 
