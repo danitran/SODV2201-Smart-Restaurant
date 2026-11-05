@@ -1,13 +1,3 @@
-/**
- * orderService.js — placing orders, moving them through the kitchen and
- * collecting feedback.
- *
- * Order life cycle (see NEXT_ORDER_STATUS in restaurantInfo.js):
- *   pending → preparing → ready → delivered
- *   pending/preparing → cancelled
- * Every change is stored in order.statusHistory with a timestamp and creates
- * a notification for the customer.
- */
 import { ApiError } from './apiError.js'
 import { updateDatabase } from './database.js'
 import { simulateNetwork } from './network.js'
@@ -17,7 +7,6 @@ import { calculateTotals } from '../utils/pricing.js'
 import { createId } from '../utils/ids.js'
 import { hasErrors, validateCheckout, validateFeedback } from '../utils/validation.js'
 
-/** Customer-facing words for each status. Pickup orders say "Picked up" instead of "Delivered". */
 export function getStatusLabel(status, type = 'delivery') {
   const labels = {
     pending: 'Order received',
@@ -40,22 +29,12 @@ const STATUS_MESSAGES = {
   cancelled: (order) => `Order ${order.id} was cancelled by the restaurant. Call ${RESTAURANT.phone} if you have questions.`,
 }
 
-/**
- * Creates an order from the cart.
- * @param {object} input
- * @param {string} input.ownerId  signed-in user id or guest id
- * @param {string|null} input.userId
- * @param {{name,phone,email,address}} input.customer
- * @param {'delivery'|'pickup'} input.type
- * @param {{itemId:string, quantity:number}[]} input.items
- * @param {string} input.notes
- */
 export async function placeOrder({ ownerId, userId = null, customer, type, items, notes = '' }) {
   await simulateNetwork()
   return updateDatabase((db) => {
     if (!items?.length) throw new ApiError('Your order is empty. Add something from the menu first.')
 
-    // Prices always come from the current menu, never from the browser's cart.
+    // Prices come from the current menu, never from the cart.
     const lines = items.map(({ itemId, quantity }) => {
       const item = db.menu.find((menuItem) => menuItem.id === itemId)
       if (!item) throw new ApiError('An item in your order is no longer on the menu. Remove it and try again.')
@@ -108,7 +87,6 @@ export async function placeOrder({ ownerId, userId = null, customer, type, items
   })
 }
 
-/** Admin moves an order to its next status (or cancels it). */
 export async function updateOrderStatus(orderId, nextStatus) {
   await simulateNetwork(150)
   return updateDatabase((db) => {
@@ -133,7 +111,6 @@ export async function updateOrderStatus(orderId, nextStatus) {
   })
 }
 
-/** Customer rates a delivered order (once). */
 export async function submitFeedback(orderId, { rating, comment = '' }) {
   await simulateNetwork()
   return updateDatabase((db) => {

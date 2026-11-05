@@ -1,10 +1,3 @@
-/**
- * menuService.js — create, update and delete menu items (admin), toggle
- * availability and choose today's special.
- *
- * Every function is async and validates its input again before saving, the
- * same way a real API would never trust the browser.
- */
 import { ApiError } from './apiError.js'
 import { updateDatabase } from './database.js'
 import { simulateNetwork } from './network.js'
@@ -12,7 +5,6 @@ import { roundMoney } from '../utils/format.js'
 import { uniqueSlug } from '../utils/ids.js'
 import { hasErrors, validateMenuItem } from '../utils/validation.js'
 
-/** Turns raw form values into a clean menu item object. */
 function normalizeMenuItem(input) {
   const ingredients = Array.isArray(input.ingredients)
     ? input.ingredients
@@ -67,7 +59,6 @@ export async function deleteMenuItem(id) {
   })
 }
 
-/** Sold out / back in stock. Customers see the change right away. */
 export async function setItemAvailability(id, available) {
   await simulateNetwork(120)
   return updateDatabase((db) => {
@@ -77,7 +68,6 @@ export async function setItemAvailability(id, available) {
   })
 }
 
-/** Only one dish can be today's special at a time. */
 export async function setTodaysSpecial(id) {
   await simulateNetwork(120)
   return updateDatabase((db) => {

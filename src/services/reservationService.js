@@ -1,13 +1,3 @@
-/**
- * reservationService.js — table bookings and special events.
- *
- * Rules:
- *   - Regular tables are confirmed straight away if the time slot has room.
- *   - Special events (birthdays, corporate gatherings…) start as "pending"
- *     and wait for an admin to approve them.
- *   - A confirmation notification is created as soon as a booking succeeds,
- *     and another one whenever the restaurant approves or cancels it.
- */
 import { ApiError } from './apiError.js'
 import { updateDatabase } from './database.js'
 import { simulateNetwork } from './network.js'
@@ -19,7 +9,6 @@ import { hasErrors, validateReservation } from '../utils/validation.js'
 
 export const getEventLabel = (eventType) => EVENT_TYPES.find((type) => type.id === eventType)?.label ?? 'Special event'
 
-/** "table for 4" or "birthday party for 16 guests" */
 export function describeBooking(reservation) {
   return reservation.type === 'event'
     ? `${getEventLabel(reservation.eventType).toLowerCase()} for ${reservation.partySize} guests`
@@ -79,11 +68,6 @@ export async function createReservation(input, { ownerId, userId = null }) {
   })
 }
 
-/**
- * Changes a booking's status.
- * @param {'confirmed'|'cancelled'} nextStatus
- * @param {'admin'|'customer'} by  who is making the change
- */
 export async function updateReservationStatus(id, nextStatus, by = 'admin') {
   await simulateNetwork(150)
   return updateDatabase((db) => {

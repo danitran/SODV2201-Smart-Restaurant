@@ -1,6 +1,3 @@
-/**
- * menuFilters.test.js — search, filters and sorting on the menu page.
- */
 import { describe, expect, it } from 'vitest'
 import { MENU_ITEMS } from '../data/menuItems.js'
 import { filterMenu, readFilters, toSearchParams, DEFAULT_FILTERS } from './menuFilters.js'

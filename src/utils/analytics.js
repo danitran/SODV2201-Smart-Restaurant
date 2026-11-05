@@ -1,16 +1,8 @@
-/**
- * analytics.js — numbers for the admin dashboard, computed from orders and
- * feedback. Cancelled orders are left out of sales figures.
- *
- * These are pure functions: they receive the data and "now" as arguments,
- * which keeps them predictable and lets the unit tests use fixed dates.
- */
 import { addDays, roundMoney, toDateInputValue } from './format.js'
 
 const isCounted = (order) => order.status !== 'cancelled'
 const dayKey = (iso) => toDateInputValue(new Date(iso))
 
-/** Orders and revenue for each of the last `days` days (oldest first). */
 export function getOrdersPerDay(orders, days = 7, now = new Date()) {
   const buckets = []
   for (let i = days - 1; i >= 0; i -= 1) {
@@ -34,7 +26,6 @@ export function getOrdersPerDay(orders, days = 7, now = new Date()) {
   return buckets
 }
 
-/** Orders and revenue for each of the last `weeks` 7-day periods (oldest first). */
 export function getOrdersPerWeek(orders, weeks = 4, now = new Date()) {
   const daily = getOrdersPerDay(orders, weeks * 7, now)
   const result = []
@@ -51,7 +42,6 @@ export function getOrdersPerWeek(orders, weeks = 4, now = new Date()) {
   return result
 }
 
-/** Best sellers by quantity. Pass a category to rank only that category. */
 export function getPopularItems(orders, menu, { category = null, limit = 5 } = {}) {
   const quantities = new Map()
   for (const order of orders.filter(isCounted)) {
@@ -67,7 +57,6 @@ export function getPopularItems(orders, menu, { category = null, limit = 5 } = {
     .slice(0, limit)
 }
 
-/** Headline numbers for today. */
 export function getTodayStats(orders, now = new Date()) {
   const today = toDateInputValue(now)
   const todays = orders.filter((order) => dayKey(order.createdAt) === today && isCounted(order))
@@ -81,7 +70,6 @@ export function getTodayStats(orders, now = new Date()) {
   }
 }
 
-/** Words that tell us which topic a comment is about. */
 const THEMES = [
   { id: 'food', label: 'Food quality', words: ['delicious', 'tasty', 'fresh', 'perfect', 'perfectly', 'amazing', 'creamy', 'best', 'loved', 'excellent', 'gooey', 'salty', 'bland', 'flavour', 'flavor', 'crust'] },
   { id: 'speed', label: 'Delivery and wait times', words: ['delivery', 'arrived', 'fast', 'quick', 'slow', 'late', 'wait', 'cold', 'hot', 'lukewarm'] },
@@ -91,7 +79,6 @@ const THEMES = [
   { id: 'ordering', label: 'Online ordering', words: ['online', 'ordering', 'app', 'website', 'easy'] },
 ]
 
-/** Which theme ids a comment mentions. */
 export function detectThemes(comment = '') {
   const words = comment.toLowerCase().match(/[a-z]+/g) ?? []
   return THEMES.filter((theme) => theme.words.some((word) => words.includes(word))).map((theme) => theme.id)
@@ -107,11 +94,6 @@ const countThemes = (entries) => {
     .sort((a, b) => b.count - a.count)
 }
 
-/**
- * Turns all feedback into a short summary for the admin:
- * average rating, how many of each star, what people praise (4–5 stars)
- * and what they complain about (1–3 stars), plus a one-paragraph summary.
- */
 export function summarizeFeedback(feedback) {
   const count = feedback.length
   const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
@@ -139,22 +121,16 @@ export function summarizeFeedback(feedback) {
   return { count, average, distribution, praise, complaints, summary, recent }
 }
 
-/** Orders placed in the last `days` days, today included. */
 export function getOrdersInLastDays(orders, days, now = new Date()) {
   const firstDay = toDateInputValue(addDays(now, -(days - 1)))
   return orders.filter((order) => dayKey(order.createdAt) >= firstDay)
 }
 
-/** Feedback written in the last `days` days, today included. */
 export function getFeedbackInLastDays(feedback, days, now = new Date()) {
   const firstDay = toDateInputValue(addDays(now, -(days - 1)))
   return feedback.filter((entry) => dayKey(entry.createdAt) >= firstDay)
 }
 
-/**
- * Round axis ticks for a chart whose largest value is `max`:
- * getNiceTicks(37) → [0, 10, 20, 30, 40]
- */
 export function getNiceTicks(max, approxCount = 4) {
   if (max <= 0) return [0, 1]
   const rough = max / approxCount

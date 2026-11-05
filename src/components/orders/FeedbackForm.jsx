@@ -1,10 +1,3 @@
-/**
- * FeedbackForm.jsx — 1 to 5 stars and an optional comment for a delivered
- * order. The admin dashboard summarises these reviews.
- *
- * Props: onSubmit({ rating, comment }) — returns a Promise (the parent calls
- * the order service). Errors from the service are shown under the form.
- */
 import { useState } from 'react'
 import { getErrorMessage } from '../../services/apiError.js'
 import { TextAreaField } from '../common/FormFields.jsx'

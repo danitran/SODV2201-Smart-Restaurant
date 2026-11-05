@@ -1,24 +1,16 @@
-/**
- * AuthProvider.jsx — who is using the app right now.
- *
- * - `user` is null for guests, or the signed-in customer/admin.
- * - The user id is kept in sessionStorage (per tab), so you can be a
- *   customer in one tab and the admin in another during the demo.
- * - `ownerId` links orders, bookings and notifications to the person:
- *   the user's id when signed in, otherwise this browser's guest id.
- */
 import { useCallback, useMemo, useState } from 'react'
 import { AuthContext } from './AuthContext.js'
 import * as authService from '../services/authService.js'
 import { getGuestId, readJSON, removeKey, writeJSON } from '../services/storage.js'
 
+// sessionStorage is per tab, so one tab can be the admin and another a customer.
 const SESSION_KEY = 'basil-brick:session'
 
 function rememberSession(userId) {
   try {
     writeJSON(SESSION_KEY, userId, 'session')
   } catch {
-    // If the tab cannot store the session, the user stays signed in until refresh.
+    // Storage disabled: the user stays signed in until refresh.
   }
 }
 

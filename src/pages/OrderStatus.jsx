@@ -1,13 +1,3 @@
-/**
- * OrderStatus.jsx — order confirmation and live tracking (/orders/:orderId).
- *
- * - Right after checkout, the router state says { justPlaced: true }, so a
- *   thank-you banner is shown (useLocation().state).
- * - The order comes from RestaurantContext. When the restaurant changes its
- *   status (even from another tab), the context updates and this page
- *   re-renders with the new step: no refresh needed.
- * - Once delivered, the customer can rate the order.
- */
 import { Link, useLocation, useNavigate, useParams } from 'react-router'
 import { useCart } from '../context/CartContext.js'
 import { useRestaurant } from '../context/RestaurantContext.js'

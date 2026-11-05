@@ -1,11 +1,3 @@
-/**
- * AdminLayout.jsx — the frame around the admin pages: a sidebar with links
- * and counters, and the current page in <Outlet />.
- *
- * NewActivityWatcher pops up a toast when a customer places an order or
- * books a table (for example in another browser tab), so staff notice new
- * work without refreshing.
- */
 import { useEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'

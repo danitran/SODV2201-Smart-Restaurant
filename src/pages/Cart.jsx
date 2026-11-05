@@ -1,12 +1,3 @@
-/**
- * Cart.jsx — review the order: change quantities, remove dishes, choose
- * delivery or pickup, and see the bill before checkout.
- *
- * Conditional rendering:
- *   - empty cart          → an empty state with a link to the menu
- *   - sold-out dishes     → a warning, and checkout is blocked until removed
- *   - delivery under $50  → how much more is needed for free delivery
- */
 import { Link } from 'react-router'
 import { useCart } from '../context/CartContext.js'
 import { PRICING } from '../data/restaurantInfo.js'
@@ -39,7 +30,6 @@ export default function Cart() {
     )
   }
 
-  // Only dishes that can still be ordered count toward the bill.
   const orderableLines = lines.filter((line) => line.isOrderable)
   const totals = calculateTotals(orderableLines, orderType)
   const toFreeDelivery = amountToFreeDelivery(totals.subtotal)

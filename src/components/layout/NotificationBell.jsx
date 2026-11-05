@@ -1,10 +1,3 @@
-/**
- * NotificationBell.jsx — the bell in the header with a dropdown list of
- * order and reservation updates for the current customer (or guest).
- *
- * Opening the list marks everything as read. The list closes when you click
- * outside it or press Escape.
- */
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'
@@ -21,7 +14,6 @@ export function NotificationBell() {
   const mine = notifications.filter((notification) => notification.ownerId === ownerId)
   const unread = mine.filter((notification) => !notification.read).length
 
-  // Close when clicking outside or pressing Escape (only while open).
   useEffect(() => {
     if (!open) return undefined
     const handleClick = (event) => {

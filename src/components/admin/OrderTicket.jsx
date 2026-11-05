@@ -1,14 +1,3 @@
-/**
- * OrderTicket.jsx — one order on the kitchen board, styled like the paper
- * ticket a kitchen printer would produce.
- *
- * Props:
- *   order            the order
- *   now              current time (from useNow) for "5 min ago" and the New tag
- *   busy             disables the buttons while a change is saving
- *   onAdvance(next)  move the order to its next status
- *   onCancel()       ask to cancel the order
- */
 import { NEXT_ORDER_STATUS } from '../../data/restaurantInfo.js'
 import { formatPrice, timeAgo } from '../../utils/format.js'
 

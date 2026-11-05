@@ -1,6 +1,3 @@
-/**
- * NotFound.jsx — shown for any URL that does not match a route (path="*").
- */
 import { Link, useLocation } from 'react-router'
 import { EmptyState } from '../components/common/Feedback.jsx'
 

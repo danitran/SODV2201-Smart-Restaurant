@@ -1,15 +1,4 @@
-/**
- * menuItems.js — the starting menu (22 dishes in 4 categories).
- *
- * Each item has: id, name, category, description, ingredients, price,
- * dietary tags, an emoji used as its picture, availability, and whether
- * it is today's special. Admins can change all of this later from the
- * dashboard; this list is only used to seed the database the first time
- * the app runs (or when "Reset demo data" is pressed).
- */
-
 export const MENU_ITEMS = [
-  // ── Starters ────────────────────────────────────────────────────────────
   {
     id: 'garden-salad',
     name: 'Garden Salad',
@@ -73,7 +62,6 @@ export const MENU_ITEMS = [
     emoji: '🍲',
   },
 
-  // ── Mains ───────────────────────────────────────────────────────────────
   {
     id: 'chicken-alfredo',
     name: 'Chicken Alfredo',
@@ -147,7 +135,6 @@ export const MENU_ITEMS = [
     emoji: '🥩',
   },
 
-  // ── Desserts ────────────────────────────────────────────────────────────
   {
     id: 'lava-cake',
     name: 'Chocolate Lava Cake',
@@ -189,7 +176,6 @@ export const MENU_ITEMS = [
     emoji: '🥭',
   },
 
-  // ── Beverages ───────────────────────────────────────────────────────────
   {
     id: 'lemonade',
     name: 'Fresh Lemonade',

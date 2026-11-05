@@ -1,23 +1,3 @@
-/**
- * Menu.jsx — browse, search and filter the menu, and add dishes to the order.
- *
- * - The filters live in component state (`filters`), so inputs update
- *   instantly, and are mirrored into the URL with useSearchParams() so a
- *   filtered menu can be shared as a link.
- * - React Router updates the URL in a low-priority transition. If the inputs
- *   read their values straight from the URL, fast typing could lose letters,
- *   which is why the state is the source of truth while you type.
- * - This page writes the URL with replace: true. Any other kind of navigation
- *   (a link such as the assistant's "See all gluten-free dishes" or the Menu
- *   link in the header, or the back button) comes from outside, so its
- *   filters are loaded into state. This uses React's "adjust state when a
- *   value changes" pattern: compare with the last seen location.key during
- *   render, instead of an effect that would render twice.
- * - filterMenu() (utils/menuFilters.js) does the actual filtering.
- * - With "All" selected and the default sort, dishes are grouped under
- *   Starters / Mains / Desserts / Beverages like a printed menu.
- * - Sold-out dishes stay visible but cannot be added (admins toggle this).
- */
 import { useState } from 'react'
 import { useLocation, useNavigationType, useSearchParams } from 'react-router'
 import { useAuth } from '../context/AuthContext.js'
@@ -44,13 +24,14 @@ export default function Menu() {
   const { addItem, getQuantity } = useCart()
   const { showToast } = useToast()
   const [searchParams, setSearchParams] = useSearchParams()
+  // Filters live in state and are mirrored to the URL. Reading inputs straight from the URL
+  // dropped letters when typing fast, because React Router updates it in a transition.
   const [filters, setFilters] = useState(() => readFilters(searchParams))
-  // Phones only: the filter panel is hidden until the Filters button is pressed.
   const [showFilters, setShowFilters] = useState(false)
 
-  // Adopt filters from navigations that did not come from this page (see above).
   const location = useLocation()
   const navigationType = useNavigationType()
+  // Links and back/forward bring their filters in; our own URL updates use replace.
   const [seenLocationKey, setSeenLocationKey] = useState(location.key)
   if (location.key !== seenLocationKey) {
     setSeenLocationKey(location.key)
@@ -65,8 +46,6 @@ export default function Menu() {
   const updateFilters = (changes) => {
     const next = { ...filters, ...changes }
     setFilters(next)
-    // replace: true → typing does not add a history entry per letter, and it
-    // tells the effect above that this URL change came from this page.
     setSearchParams(toSearchParams(next), { replace: true })
   }
   const resetFilters = () => updateFilters(DEFAULT_FILTERS)

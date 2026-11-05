@@ -1,12 +1,3 @@
-/**
- * Account.jsx — the signed-in customer's area (protected route).
- *
- *   Profile and preferences  name, phone, address, dietary needs. The menu
- *                            can apply these, and the AI assistant uses them
- *                            for recommendations.
- *   Order history            every order with its status, plus "Order again"
- *   Bookings                 reservations with live status and cancel
- */
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext.js'

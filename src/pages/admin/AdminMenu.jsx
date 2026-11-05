@@ -1,12 +1,3 @@
-/**
- * AdminMenu.jsx — menu management (create, read, update, delete).
- *
- * - The availability switch marks a dish sold out or back in stock; the
- *   customer menu, carts and the AI assistant react to it immediately
- *   (also in other open tabs, through the storage event).
- * - "Make special" chooses today's special (only one at a time).
- * - Add / Edit open MenuItemForm in a dialog; Delete asks for confirmation.
- */
 import { useState } from 'react'
 import { useRestaurant } from '../../context/RestaurantContext.js'
 import { useToast } from '../../context/ToastContext.js'
@@ -26,7 +17,7 @@ export default function AdminMenu() {
 
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
-  const [editing, setEditing] = useState(null) // null = closed, 'new' = add form, or the dish being edited
+  const [editing, setEditing] = useState(null)
   const [toDelete, setToDelete] = useState(null)
   const [deleting, setDeleting] = useState(false)
 

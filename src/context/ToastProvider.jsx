@@ -1,10 +1,3 @@
-/**
- * ToastProvider.jsx — shows short messages in the corner of the screen.
- *
- * State: `toasts`, an array of { id, title, message, type }.
- * showToast() adds one and removes it again after a few seconds.
- * The stack is an aria-live region, so screen readers announce new toasts.
- */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ToastContext } from './ToastContext.js'
 
@@ -23,7 +16,7 @@ export function ToastProvider({ children }) {
   const showToast = useCallback(
     (message, { type = 'success', title = '' } = {}) => {
       const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
-      // Replace an identical message instead of stacking it, and keep at most 3 on screen.
+      // The same message replaces the old one; at most 3 toasts on screen.
       setToasts((current) => [
         ...current.filter((toast) => toast.message !== message).slice(-2),
         { id, title, message, type },
@@ -33,7 +26,6 @@ export function ToastProvider({ children }) {
     [dismissToast],
   )
 
-  // Clear any pending timers if the provider unmounts.
   useEffect(() => {
     const pending = timers.current
     return () => pending.forEach((timer) => clearTimeout(timer))

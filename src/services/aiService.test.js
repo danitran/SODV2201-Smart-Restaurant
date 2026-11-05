@@ -1,10 +1,3 @@
-/**
- * aiService.test.js — checks the simulated AI assistant (npm test).
- *
- * The seed data is built for a fixed date, so the answers are predictable.
- * The first group proves the six sample questions from the assignment brief
- * get the brief's responses word for word.
- */
 import { describe, expect, it } from 'vitest'
 import { BRIEF_DATASET } from '../data/aiDataset.js'
 import { createSeedDatabase, DEMO_CUSTOMER_ID } from '../data/seed.js'
@@ -16,7 +9,6 @@ const guest = { menu: db.menu, orders: db.orders, user: null, ownerId: 'guest-te
 const signedIn = { menu: db.menu, orders: db.orders, user: demoCustomer, ownerId: DEMO_CUSTOMER_ID }
 
 describe('brief dataset: the six sample questions', () => {
-  // "What did I order last time?" needs a customer with orders, so it uses the demo account.
   it.each(BRIEF_DATASET.map((entry) => [entry.question, entry.response, entry.id]))(
     '"%s" → "%s"',
     (question, response, id) => {

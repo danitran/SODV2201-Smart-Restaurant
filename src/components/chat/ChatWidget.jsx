@@ -1,23 +1,3 @@
-/**
- * ChatWidget.jsx — the AI assistant chat, opened from the button in the
- * bottom-right corner of every customer page.
- *
- * State:
- *   open      is the panel showing?
- *   messages  the conversation: { id, from: 'user' | 'assistant', text, itemIds, link }
- *   draft     the text box (controlled input)
- *   typing    shows "…" while the assistant "thinks"
- *
- * Sending a message adds it to `messages`, waits a moment (so it feels like
- * a reply is being written), then asks getAssistantReply() for the answer
- * using the live menu, orders and signed-in user from context.
- *
- * Refs: listRef scrolls to the newest message, inputRef focuses the text box
- * when the panel opens.
- *
- * The brief's six sample questions are always available as quick-reply chips
- * above the text box.
- */
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'
@@ -51,17 +31,14 @@ export function ChatWidget() {
   const inputRef = useRef(null)
   const timerRef = useRef(null)
 
-  // Keep the newest message in view.
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight
   }, [messages, typing, open])
 
-  // Focus the text box when the panel opens.
   useEffect(() => {
     if (open) inputRef.current?.focus()
   }, [open])
 
-  // Cancel a pending reply if the widget unmounts (e.g. switching to admin pages).
   useEffect(() => () => clearTimeout(timerRef.current), [])
 
   const ask = (question) => {

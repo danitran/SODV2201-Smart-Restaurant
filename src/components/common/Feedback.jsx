@@ -1,8 +1,3 @@
-/**
- * Feedback.jsx — small components that show the state of the page:
- *   <Spinner label="Loading…" />           while waiting
- *   <EmptyState title="…">text</EmptyState> when there is nothing to show
- */
 export function Spinner({ label = 'Loading…' }) {
   return (
     <span className="spinner" role="status">
@@ -11,13 +6,6 @@ export function Spinner({ label = 'Loading…' }) {
   )
 }
 
-/**
- * Props:
- *   icon     emoji shown above the title
- *   title    short heading
- *   children explanation text
- *   actions  buttons/links that tell the user what to do next
- */
 export function EmptyState({ icon = '🍽️', title, children, actions }) {
   return (
     <div className="empty-state">

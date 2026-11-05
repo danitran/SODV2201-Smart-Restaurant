@@ -1,9 +1,3 @@
-/**
- * AuthContext.js — context object + hook for the signed-in user.
- * The provider is in AuthProvider.jsx.
- *
- *   const { user, isAdmin, login, logout } = useAuth()
- */
 import { createContext, useContext } from 'react'
 
 export const AuthContext = createContext(null)

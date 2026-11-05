@@ -1,9 +1,3 @@
-/*
- * components.css — small reusable pieces: badges, toasts, dialogs, empty
- * states, the notification bell, quantity steppers and star ratings.
- */
-
-/* ── Badges ───────────────────────────────────────────────────────────── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -44,7 +38,6 @@
   gap: 6px;
 }
 
-/* Status badges for orders and reservations */
 .status {
   display: inline-flex;
   align-items: center;
@@ -91,7 +84,6 @@
   color: #5b5b5b;
 }
 
-/* ── Toasts ───────────────────────────────────────────────────────────── */
 .toast-stack {
   position: fixed;
   left: var(--space-4);
@@ -145,7 +137,7 @@
 
 @media (max-width: 560px) {
   .toast-stack {
-    bottom: 84px; /* stay above the chat button */
+    bottom: 84px;
   }
 }
 
@@ -156,7 +148,6 @@
   }
 }
 
-/* ── Empty / loading / error states ───────────────────────────────────── */
 .empty-state {
   display: grid;
   justify-items: center;
@@ -216,7 +207,6 @@
   }
 }
 
-/* ── Dialog (native <dialog>) ─────────────────────────────────────────── */
 .dialog {
   width: min(560px, calc(100vw - 2rem));
   max-height: calc(100vh - 2rem);
@@ -263,7 +253,6 @@
   background: var(--color-linen);
 }
 
-/* ── Notification bell ────────────────────────────────────────────────── */
 .bell {
   position: relative;
 }
@@ -344,7 +333,6 @@
   text-align: center;
 }
 
-/* ── Quantity stepper ─────────────────────────────────────────────────── */
 .stepper {
   display: inline-flex;
   align-items: center;
@@ -381,7 +369,6 @@
   text-align: center;
 }
 
-/* ── Stars ────────────────────────────────────────────────────────────── */
 .stars {
   color: var(--color-parmesan);
   letter-spacing: 1px;
@@ -422,7 +409,6 @@
   box-shadow: var(--focus-ring);
 }
 
-/* ── Live indicator ───────────────────────────────────────────────────── */
 .live-dot {
   display: inline-flex;
   align-items: center;
@@ -451,7 +437,6 @@
   }
 }
 
-/* ── Error boundary screen ────────────────────────────────────────────── */
 .crash {
   max-width: 620px;
   margin: var(--space-8) auto;

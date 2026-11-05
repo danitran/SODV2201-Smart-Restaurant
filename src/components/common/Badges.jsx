@@ -1,11 +1,3 @@
-/**
- * Badges.jsx — little labels used across the app.
- *
- *   <StatusBadge kind="order" status="preparing" type="pickup" />
- *   <StatusBadge kind="reservation" status="pending" />
- *   <DishBadges item={menuItem} />   dietary tags, spicy, special, sold out
- *   <Stars value={4} />              read-only star rating
- */
 import { DIETARY_TAGS } from '../../data/restaurantInfo.js'
 import { getStatusLabel } from '../../services/orderService.js'
 
@@ -20,11 +12,6 @@ export function StatusBadge({ kind = 'order', status, type }) {
   return <span className={`status status--${status}`}>{label}</span>
 }
 
-/**
- * Props:
- *   item         the menu item
- *   showSpecial  show the "Today's special" badge (default true)
- */
 export function DishBadges({ item, showSpecial = true }) {
   const tags = DIETARY_TAGS.filter((tag) => item.dietary.includes(tag.id))
   const hasAny = tags.length > 0 || item.spicy || (showSpecial && item.isSpecial) || !item.available

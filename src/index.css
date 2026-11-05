@@ -1,10 +1,3 @@
-/*
- * index.css — loads every stylesheet in order (external CSS).
- * tokens first (variables), then base element styles, then layout and the
- * styles for each part of the app.
- * The display font (Caprasimo) is installed from npm (@fontsource/caprasimo)
- * and imported in main.jsx, so it also works offline.
- */
 @import './styles/tokens.css';
 @import './styles/base.css';
 @import './styles/layout.css';

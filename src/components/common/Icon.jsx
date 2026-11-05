@@ -1,11 +1,3 @@
-/**
- * Icon.jsx — simple line icons drawn with SVG (no icon library needed).
- *
- * Props:
- *   name   which icon to draw (see ICONS below)
- *   size   width/height in pixels (default 20)
- *   label  optional text for screen readers; without it the icon is decorative
- */
 const ICONS = {
   bag: (
     <>
@@ -122,7 +114,6 @@ export function Icon({ name, size = 20, label }) {
   )
 }
 
-/** The Basil & Brick logo: a tomato-red tile with a basil leaf. */
 export function LogoMark({ className = 'brand__mark' }) {
   return (
     <svg className={className} viewBox="0 0 64 64" aria-hidden="true" focusable="false">

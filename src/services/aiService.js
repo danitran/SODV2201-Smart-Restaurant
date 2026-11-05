@@ -1,22 +1,3 @@
-/**
- * aiService.js — the simulated AI assistant (Assignment 1, AI Option 2).
- *
- * How a reply is produced:
- *   1. normalize()      lower-case the message and strip punctuation
- *   2. detectIntent()   score every intent by the keywords it contains
- *                       (a phrase of N words = N points); `priority` breaks ties
- *   3. RESPONDERS[id]   build the answer. Most answers use live data:
- *                       the menu (today's special, dietary tags), all orders
- *                       (what is popular) and the customer's own orders
- *                       (last order, personal suggestions).
- *
- * Everything runs in the browser, so no API key is needed. To switch to a real
- * model later (Gemini, Groq or Ollama), only getAssistantReply() changes: it
- * would send the message plus this same context to the Node.js back end.
- *
- * All functions here are pure (no React, no storage), which makes them easy to
- * unit test: see aiService.test.js.
- */
 import { BRIEF_DATASET, EXTRA_INTENTS } from '../data/aiDataset.js'
 import { CATEGORIES, DIETARY_TAGS, PRICING, RESERVATION_RULES, RESTAURANT } from '../data/restaurantInfo.js'
 import { getPopularItems } from '../utils/analytics.js'
@@ -26,11 +7,8 @@ import { getStatusLabel } from './orderService.js'
 const ALL_INTENTS = [...BRIEF_DATASET, ...EXTRA_INTENTS]
 const briefResponse = (id) => BRIEF_DATASET.find((entry) => entry.id === id).response
 
-// When a question mixes "recommend" with a specific topic ("what dessert do you
-// recommend?"), the topic gives the more useful answer.
 const TOPIC_INTENTS = ['popular-dessert', 'vegetarian', 'gluten-free', 'vegan', 'dairy-free']
 
-/** "Do you have GLUTEN-FREE options?!" → "do you have gluten free options" */
 export function normalize(text) {
   return String(text)
     .toLowerCase()
@@ -38,7 +16,7 @@ export function normalize(text) {
     .trim()
 }
 
-/** Returns { id, score } of the best matching intent, or null if nothing matches. */
+// A matched keyword phrase of N words scores N points; ties go to the more specific intent.
 export function detectIntent(message) {
   const text = ` ${normalize(message)} `
   const scored = ALL_INTENTS.map((intent, index) => {
@@ -60,9 +38,6 @@ export function detectIntent(message) {
   return { id: best.id, score: best.score }
 }
 
-// ── Helpers that read the live data ──────────────────────────────────────
-
-/** Orders that belong to the person chatting (account first, then this device). */
 function getMyOrders({ orders, user, ownerId }) {
   return orders
     .filter((order) => (user ? order.userId === user.id : order.ownerId === ownerId))
@@ -75,7 +50,6 @@ const dietLabel = (diets) =>
   joinWithAnd(diets.map((diet) => DIETARY_TAGS.find((tag) => tag.id === diet)?.label.toLowerCase() ?? diet))
 const existingIds = (menu, ids) => ids.filter((id) => menu.some((item) => item.id === id))
 
-/** A dish the customer has not tried yet, from the category they order most. */
 function suggestSomethingNew(context, diets) {
   const myOrders = getMyOrders(context)
   if (myOrders.length === 0) return null
@@ -101,14 +75,11 @@ function suggestSomethingNew(context, diets) {
   return { item: pick, text: `Since you often order our ${label}, you might also like the ${pick.name}.` }
 }
 
-/** Lists dishes with a dietary tag (starters and mains first). */
 function listDietDishes(menu, diet) {
   return menu
     .filter((item) => item.available && item.dietary.includes(diet) && item.category !== 'beverages')
     .sort((a, b) => (a.category === 'mains' ? -1 : 0) - (b.category === 'mains' ? -1 : 0))
 }
-
-// ── One function per intent: returns { text, itemIds?, link? } ───────────
 
 const RESPONDERS = {
   'todays-special': ({ menu, orders }) => {
@@ -236,12 +207,6 @@ const FALLBACK = {
   showSuggestions: true,
 }
 
-/**
- * Main entry point used by the chat component.
- * @param {string} message  what the customer typed
- * @param {{menu, orders, user, ownerId}} context  live data from the app
- * @returns {{ intent: string, text: string, itemIds?: string[], link?: {to,label}, showSuggestions?: boolean }}
- */
 export function getAssistantReply(message, context) {
   if (!normalize(message)) return { intent: 'empty', text: 'Type a question, or tap one of the suggestions below.', showSuggestions: true }
   const intent = detectIntent(message)

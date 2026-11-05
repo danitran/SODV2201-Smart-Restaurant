@@ -1,14 +1,3 @@
-/**
- * MenuItemForm.jsx — the add / edit dish form shown in a dialog.
- *
- * Props:
- *   initial   the dish being edited, or undefined for a new dish
- *   onSubmit  async (values) => void; the parent saves through the menu service
- *   onCancel  closes the dialog
- *
- * The form is controlled (one `values` object). Errors from validateMenuItem()
- * or from the service (for example a duplicate name) appear under each field.
- */
 import { useState } from 'react'
 import { CATEGORIES, DIETARY_TAGS } from '../../data/restaurantInfo.js'
 import { getErrorMessage } from '../../services/apiError.js'

@@ -1,12 +1,3 @@
-/**
- * MenuItemRow.jsx — one dish laid out like a line on a printed menu:
- * name ······ price, then the description, ingredients and badges.
- *
- * Props:
- *   item        the menu item
- *   inCart      how many of this dish are already in the order
- *   onAdd(item) callback for the Add button (the parent adds it to the cart)
- */
 import { Link } from 'react-router'
 import { formatPrice } from '../../utils/format.js'
 import { DishBadges } from '../common/Badges.jsx'

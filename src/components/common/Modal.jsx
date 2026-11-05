@@ -1,13 +1,3 @@
-/**
- * Modal.jsx — dialogs built on the native HTML <dialog> element.
- *
- * showModal() gives us focus trapping, the Escape key and a backdrop for
- * free. React controls it through the `open` prop: an effect calls
- * showModal() / close() whenever `open` changes.
- *
- * <Modal open title onClose footer>content</Modal>
- * <ConfirmDialog open title message confirmLabel onConfirm onCancel busy />
- */
 import { useEffect, useRef } from 'react'
 import { Icon } from './Icon.jsx'
 
@@ -21,13 +11,11 @@ export function Modal({ open, title, onClose, children, footer, wide = false }) 
     if (!open && dialog.open) dialog.close()
   }, [open])
 
-  // Escape key: stop the browser closing it on its own; let the parent decide.
   const handleCancel = (event) => {
     event.preventDefault()
     onClose()
   }
 
-  // Clicking the dark backdrop (the <dialog> itself, not its content) closes it.
   const handleClick = (event) => {
     if (event.target === dialogRef.current) onClose()
   }

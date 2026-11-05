@@ -1,7 +1,3 @@
-/**
- * Register.jsx — create a customer account (controlled form).
- * The new customer is signed in straight away.
- */
 import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext.js'

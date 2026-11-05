@@ -1,11 +1,3 @@
-/**
- * Home.jsx — landing page.
- *
- * - The specials board shows today's special (the dish the admin marked with
- *   isSpecial). If none is set, it shows the most ordered dish instead.
- * - "Most ordered" is calculated from real order data with getPopularItems().
- * - Adding a dish uses the cart's addItem() from CartContext.
- */
 import { Link } from 'react-router'
 import { useCart } from '../context/CartContext.js'
 import { useRestaurant } from '../context/RestaurantContext.js'

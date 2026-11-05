@@ -1,11 +1,3 @@
-/**
- * OrderTracker.jsx — the step-by-step progress of an order:
- *   Order received → Preparing → Ready → Delivered (or Picked up)
- *
- * The current step comes from order.status, and the time under each step
- * comes from order.statusHistory. When the admin changes the status, the
- * order in RestaurantContext changes and this component re-renders on its own.
- */
 import { ORDER_FLOW } from '../../data/restaurantInfo.js'
 import { getStatusLabel } from '../../services/orderService.js'
 import { formatDateTime } from '../../utils/format.js'

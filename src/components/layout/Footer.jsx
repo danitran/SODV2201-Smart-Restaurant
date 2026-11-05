@@ -1,6 +1,3 @@
-/**
- * Footer.jsx — restaurant contact details, quick links and project credit.
- */
 import { Link } from 'react-router'
 import { RESTAURANT } from '../../data/restaurantInfo.js'
 import { LogoMark } from '../common/Icon.jsx'

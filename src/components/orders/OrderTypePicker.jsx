@@ -1,7 +1,3 @@
-/**
- * OrderTypePicker.jsx — Delivery / Pickup radio buttons.
- * Controlled: `value` comes from the parent, `onChange(newType)` goes back up.
- */
 import { PRICING } from '../../data/restaurantInfo.js'
 import { formatPrice } from '../../utils/format.js'
 

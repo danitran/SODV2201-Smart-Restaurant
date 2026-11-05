@@ -1,7 +1,3 @@
-/**
- * services.test.js — the order and reservation rules, run against the real
- * services with an in-memory replacement for localStorage.
- */
 import { beforeEach, describe, expect, it } from 'vitest'
 import { loadDatabase } from './database.js'
 import { placeOrder, updateOrderStatus } from './orderService.js'
@@ -10,7 +6,6 @@ import { createReservation, updateReservationStatus } from './reservationService
 import { login } from './authService.js'
 import { addDays, toDateInputValue } from '../utils/format.js'
 
-// A tiny fake of the browser's localStorage, emptied before each test.
 beforeEach(() => {
   const data = new Map()
   globalThis.localStorage = {

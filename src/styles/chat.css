@@ -1,6 +1,3 @@
-/*
- * chat.css — the AI assistant: launcher button, panel, messages, dish chips.
- */
 .chat {
   position: fixed;
   right: var(--space-4);

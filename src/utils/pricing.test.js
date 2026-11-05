@@ -1,6 +1,3 @@
-/**
- * pricing.test.js — the bill must be right to the cent.
- */
 import { describe, expect, it } from 'vitest'
 import { amountToFreeDelivery, calculateTotals } from './pricing.js'
 
@@ -23,7 +20,7 @@ describe('calculateTotals', () => {
   it('delivery under $50 adds the $4.99 fee, and GST applies to it too', () => {
     const totals = calculateTotals(alfredoAndCake, 'delivery')
     expect(totals.deliveryFee).toBe(4.99)
-    expect(totals.tax).toBe(1.65) // 5% of 32.97
+    expect(totals.tax).toBe(1.65)
     expect(totals.total).toBe(34.62)
   })
 

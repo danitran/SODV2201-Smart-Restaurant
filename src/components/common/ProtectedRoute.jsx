@@ -1,13 +1,3 @@
-/**
- * ProtectedRoute.jsx — wraps pages that need a signed-in user.
- *
- *   <ProtectedRoute>                 any signed-in user (customer account page)
- *   <ProtectedRoute role="admin">    admins only (dashboard)
- *
- * Guests are sent to /login. The page they wanted is passed along in the
- * router state (`from`), so after signing in they come straight back.
- * A customer who opens an admin URL sees an explanation instead.
- */
 import { Link, Navigate, useLocation } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'
 import { EmptyState } from './Feedback.jsx'

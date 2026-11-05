@@ -1,12 +1,3 @@
-/**
- * ReservationList.jsx — a customer's bookings with their status and a
- * Cancel button for upcoming ones. Used on the Reservations and Account pages.
- *
- * Props:
- *   reservations  the bookings to show (already filtered by the parent)
- *   onCancel(r)   called when the customer confirms a cancellation
- *   emptyText     message when there are no bookings
- */
 import { useState } from 'react'
 import { describeBooking } from '../../services/reservationService.js'
 import { formatDate, formatTime } from '../../utils/format.js'

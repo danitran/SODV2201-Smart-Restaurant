@@ -1,13 +1,3 @@
-/**
- * AdminOrders.jsx — monitor incoming orders and update their status.
- *
- * Kitchen board: three columns (New → Preparing → Ready). Each button moves
- * an order one step along; the customer's tracking page and notifications
- * update at the same moment. New orders from customers appear here without
- * refreshing (RestaurantProvider listens for changes from other tabs).
- *
- * All orders: a searchable history table with a status filter.
- */
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { useRestaurant } from '../../context/RestaurantContext.js'

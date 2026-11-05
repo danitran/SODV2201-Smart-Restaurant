@@ -1,11 +1,8 @@
-/**
- * validation.test.js — form rules used by the pages and the services.
- */
 import { describe, expect, it } from 'vitest'
 import { isValidEmail, isValidPhone, validateCheckout, validateMenuItem, validateReservation } from './validation.js'
 
 const contact = { name: 'Tai Tran', email: 'tai@example.com', phone: '403-555-0199' }
-const now = new Date(2026, 9, 28, 15, 0) // Oct 28 2026, 3:00 PM local time
+const now = new Date(2026, 9, 28, 15, 0)
 
 describe('email and phone', () => {
   it.each(['tai@example.com', 'a.b@school.ca'])('accepts %s', (email) => expect(isValidEmail(email)).toBe(true))

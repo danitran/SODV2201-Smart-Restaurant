@@ -1,14 +1,3 @@
-/**
- * FormFields.jsx — labelled inputs with built-in error messages.
- *
- * Every field links its label (htmlFor/id) and its error text
- * (aria-describedby), and sets aria-invalid when there is an error, so
- * screen readers announce what went wrong. All fields are controlled:
- * the parent passes `value` and `onChange`.
- *
- *   <TextField label="Email" name="email" type="email"
- *              value={form.email} onChange={handleChange} error={errors.email} />
- */
 function describedBy(name, hint, error) {
   return [hint && `${name}-hint`, error && `${name}-error`].filter(Boolean).join(' ') || undefined
 }
@@ -63,7 +52,6 @@ export function TextAreaField({ label, name, error, hint, ...textareaProps }) {
   )
 }
 
-/** options: [{ value, label, disabled? }] */
 export function SelectField({ label, name, error, hint, options, placeholder, ...selectProps }) {
   return (
     <div className="field">

@@ -1,9 +1,3 @@
-/**
- * CartContext.js — context object + hook for the shopping cart.
- * The provider is in CartProvider.jsx.
- *
- *   const { lines, itemCount, addItem } = useCart()
- */
 import { createContext, useContext } from 'react'
 
 export const CartContext = createContext(null)

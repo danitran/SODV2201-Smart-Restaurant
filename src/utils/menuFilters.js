@@ -1,12 +1,3 @@
-/**
- * menuFilters.js — search, filter and sort logic for the menu page.
- *
- * The filters live in the URL query string (?category=mains&diet=vegetarian
- * &q=pasta&max=20&sort=price-asc). readFilters() turns the URL into an
- * object, toSearchParams() turns the object back into the URL, and
- * filterMenu() returns the dishes to show. Keeping filters in the URL means
- * the back button works and a filtered menu can be shared as a link.
- */
 import { CATEGORIES, DIETARY_TAGS } from '../data/restaurantInfo.js'
 
 export const SORT_OPTIONS = [
@@ -22,7 +13,6 @@ const VALID_CATEGORIES = new Set(['all', ...CATEGORIES.map((category) => categor
 const VALID_DIETS = new Set(DIETARY_TAGS.map((tag) => tag.id))
 const VALID_SORTS = new Set(SORT_OPTIONS.map((option) => option.value))
 
-/** URLSearchParams → filters object (ignores anything invalid in the URL). */
 export function readFilters(searchParams) {
   const category = searchParams.get('category') ?? 'all'
   const sort = searchParams.get('sort') ?? 'featured'
@@ -36,7 +26,6 @@ export function readFilters(searchParams) {
   }
 }
 
-/** Filters object → plain object for setSearchParams (default values are left out). */
 export function toSearchParams(filters) {
   const params = {}
   if (filters.category !== 'all') params.category = filters.category
@@ -47,7 +36,6 @@ export function toSearchParams(filters) {
   return params
 }
 
-/** True if a dish matches the search text (name, description, ingredients or category). */
 export function matchesQuery(item, query) {
   const text = query.trim().toLowerCase()
   if (!text) return true
@@ -58,7 +46,6 @@ export function matchesQuery(item, query) {
 
 const categoryOrder = (item) => CATEGORIES.findIndex((category) => category.id === item.category)
 
-/** Returns the dishes that pass every filter, in the chosen order. */
 export function filterMenu(menu, filters) {
   const results = menu.filter(
     (item) =>
@@ -77,13 +64,11 @@ export function filterMenu(menu, filters) {
   return [...results].sort(sorters[filters.sort] ?? sorters.featured)
 }
 
-/** Highest menu price rounded up to the next $5 (for the price slider). */
 export function getPriceCeiling(menu) {
   const highest = Math.max(10, ...menu.map((item) => item.price))
   return Math.ceil(highest / 5) * 5
 }
 
-/** Groups dishes by category, keeping the menu's category order. */
 export function groupByCategory(items) {
   return CATEGORIES.map((category) => ({
     ...category,

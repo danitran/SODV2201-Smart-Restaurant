@@ -1,8 +1,3 @@
-/**
- * MenuItemDetail.jsx — one dish: description, ingredients, dietary info and
- * a quantity picker. The dish id comes from the URL (/menu/:itemId) through
- * useParams().
- */
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { useCart } from '../context/CartContext.js'

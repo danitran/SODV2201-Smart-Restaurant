@@ -1,18 +1,3 @@
-/**
- * seed.js — builds the starting "database" the first time the app runs.
- *
- * It creates:
- *   - the menu (from menuItems.js)
- *   - two demo accounts (a customer and an admin)
- *   - about four weeks of past orders, so the admin charts and the AI's
- *     "popular items" answers have real data to work with
- *   - a few orders that are in progress right now (for the kitchen board)
- *   - reservations, event requests and customer feedback
- *
- * A seeded random generator (mulberry32) is used instead of Math.random(),
- * so every reset produces the same data. Dates are relative to "now", so the
- * charts always show the last 7 days, whatever day the app is opened.
- */
 import { MENU_ITEMS } from './menuItems.js'
 import { DEMO_ACCOUNTS } from './restaurantInfo.js'
 import { addDays, toDateInputValue } from '../utils/format.js'
@@ -21,9 +6,9 @@ import { calculateTotals } from '../utils/pricing.js'
 
 export const DEMO_CUSTOMER_ID = 'u-demo'
 export const ADMIN_ID = 'u-admin'
-const SEED_OWNER = 'guest-seed' // owner of the sample guest orders
+const SEED_OWNER = 'guest-seed'
 
-/** Small deterministic random number generator: returns numbers in [0, 1). */
+// Seeded random numbers, so every reset creates the same demo data.
 function mulberry32(seed) {
   let state = seed
   return () => {
@@ -34,7 +19,6 @@ function mulberry32(seed) {
   }
 }
 
-/** Picks a value using weights, e.g. [['a', 3], ['b', 1]] → 'a' 75% of the time. */
 function weightedPick(random, entries) {
   const total = entries.reduce((sum, [, weight]) => sum + weight, 0)
   let roll = random() * total
@@ -45,7 +29,6 @@ function weightedPick(random, entries) {
   return entries.at(-1)[0]
 }
 
-// How often each dish appears in sample orders (higher = more popular).
 const WEIGHTS = {
   starters: [['garden-salad', 25], ['garlic-bread', 25], ['caesar-salad', 20], ['bruschetta', 15], ['calamari', 10], ['tomato-soup', 10]],
   mains: [['chicken-alfredo', 30], ['margherita-pizza', 18], ['vegetable-pasta', 12], ['diavola-pizza', 12], ['grilled-salmon', 10], ['gf-penne-bolognese', 8], ['ribeye-steak', 8]],
@@ -89,7 +72,6 @@ const FEEDBACK_SAMPLES = [
   { rating: 5, comment: 'The calamari was crispy and perfectly seasoned.' },
 ]
 
-/** Timestamps for each status an order passed through, starting at createdAt. */
 function buildHistory(createdAt, finalStatus) {
   const start = new Date(createdAt).getTime()
   const minutesAfter = { pending: 0, preparing: 3, ready: 19, delivered: 42, cancelled: 6 }
@@ -141,7 +123,6 @@ export function createSeedDatabase(now = new Date()) {
   ]
   const demoCustomer = users[1]
 
-  // ── Helper to build one order object ────────────────────────────────────
   const drafts = []
   const makeDraft = ({ createdAt, lines, type, status, customer, ownerId = SEED_OWNER, userId = null }) => {
     const items = lines.map(([itemId, quantity]) => {
@@ -200,13 +181,12 @@ export function createSeedDatabase(now = new Date()) {
     return copy
   }
 
-  // ── Past 27 days of guest orders ────────────────────────────────────────
   for (let daysAgo = 27; daysAgo >= 1; daysAgo -= 1) {
     const day = addDays(now, -daysAgo)
     const weekend = day.getDay() === 0 || day.getDay() === 5 || day.getDay() === 6
     const count = 3 + Math.floor(random() * 3) + (weekend ? 2 : 0)
     for (let i = 0; i < count; i += 1) {
-      const createdAt = atTime(day, 690 + Math.floor(random() * 600)).toISOString() // 11:30 to 21:30
+      const createdAt = atTime(day, 690 + Math.floor(random() * 600)).toISOString()
       makeDraft({
         createdAt,
         lines: randomLines(),
@@ -217,7 +197,6 @@ export function createSeedDatabase(now = new Date()) {
     }
   }
 
-  // ── Today: a few finished orders, then orders still in the kitchen ──────
   const earliestToday = atTime(now, 690).getTime()
   const latestFinished = now.getTime() - 2 * 3_600_000
   if (latestFinished > earliestToday) {
@@ -243,7 +222,6 @@ export function createSeedDatabase(now = new Date()) {
     })
   }
 
-  // ── The demo customer's own history (newest = Alfredo + Lava Cake) ──────
   const demoContact = {
     name: demoCustomer.name,
     phone: demoCustomer.phone,
@@ -267,11 +245,9 @@ export function createSeedDatabase(now = new Date()) {
     })
   }
 
-  // Give orders readable, increasing numbers in time order: ORD-1001, ORD-1002, …
   drafts.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
   const orders = drafts.map((draft, index) => ({ id: `ORD-${1001 + index}`, ...draft }))
 
-  // ── Feedback on some delivered orders ───────────────────────────────────
   const feedback = []
   const addFeedback = (order, { rating, comment }) => {
     const entry = {
@@ -294,7 +270,6 @@ export function createSeedDatabase(now = new Date()) {
   const salmonOrder = orders.find((order) => order.userId === DEMO_CUSTOMER_ID && order.items[0].itemId === 'grilled-salmon')
   addFeedback(salmonOrder, { rating: 5, comment: 'The salmon was perfectly cooked and delivery was quick.' })
 
-  // ── Reservations and event requests ─────────────────────────────────────
   const dateIn = (days) => toDateInputValue(addDays(now, days))
   const guestContact = (name) => {
     const [first, last] = name.toLowerCase().split(' ')

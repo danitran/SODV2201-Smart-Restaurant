@@ -1,22 +1,3 @@
-/**
- * aiDataset.js — the knowledge of the simulated AI assistant.
- *
- * Assignment 1, AI feature, Option 2 ("Simulate the AI locally"): the six
- * question/response pairs below are copied exactly from the assignment brief.
- * `keywords` let the assistant recognise other ways of asking the same thing
- * ("veggie options?", "anything gluten free?").
- *
- * Some answers are personalised at run time by aiService.js from real data
- * (today's special, the most popular dessert, the customer's last order).
- * With the starting data those answers are word-for-word the brief's
- * responses; they change when the admin changes the special or new orders
- * come in.
- *
- * keyword scoring: a keyword with N words is worth N points, so phrases like
- * "gluten free" count more than single words. `priority` breaks ties: a more
- * specific topic (dessert) beats a general one (recommend).
- */
-
 export const BRIEF_DATASET = [
   {
     id: 'todays-special',
@@ -65,7 +46,6 @@ export const BRIEF_DATASET = [
   },
 ]
 
-/** Extra everyday questions so the assistant is useful beyond the six samples. */
 export const EXTRA_INTENTS = [
   { id: 'greeting', keywords: ['hi', 'hello', 'hey', 'good morning', 'good evening', 'good afternoon'], priority: 0 },
   { id: 'thanks', keywords: ['thanks', 'thank you', 'thx', 'cheers'], priority: 0 },
@@ -79,5 +59,4 @@ export const EXTRA_INTENTS = [
   { id: 'allergy', keywords: ['allergy', 'allergies', 'allergic', 'nut', 'nuts', 'peanut', 'shellfish'], priority: 5 },
 ]
 
-/** Quick-reply chips shown in the chat: the brief's six sample questions. */
 export const SUGGESTED_QUESTIONS = BRIEF_DATASET.map((entry) => entry.question)

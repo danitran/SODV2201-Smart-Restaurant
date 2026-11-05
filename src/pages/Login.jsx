@@ -1,14 +1,3 @@
-/**
- * Login.jsx — sign in for customers and the admin.
- *
- * This form uses UNCONTROLLED inputs: React does not store each keystroke in
- * state. useRef gives direct access to the two <input> elements, and their
- * values are read only when the form is submitted. (The checkout and booking
- * forms use controlled inputs instead, for live validation.)
- *
- * After signing in, the user goes back to the page they were trying to open
- * (router state `from`, set by ProtectedRoute), or to their home area.
- */
 import { useRef, useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext.js'
@@ -21,6 +10,7 @@ export default function Login() {
   const { showToast } = useToast()
   const navigate = useNavigate()
   const location = useLocation()
+  // Uncontrolled inputs: values are read through refs on submit.
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
   const [error, setError] = useState('')
@@ -28,7 +18,6 @@ export default function Login() {
 
   const homeFor = (account) => location.state?.from ?? (account.role === 'admin' ? '/admin' : '/account')
 
-  // Already signed in: nothing to do here.
   if (user && !submitting) return <Navigate to={homeFor(user)} replace />
 
   const handleSubmit = async (event) => {
@@ -54,7 +43,6 @@ export default function Login() {
     }
   }
 
-  // Fills the uncontrolled inputs directly through their refs.
   const fillDemo = (account) => {
     emailRef.current.value = account.email
     passwordRef.current.value = account.password

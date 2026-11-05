@@ -1,6 +1,3 @@
-/**
- * analytics.test.js — numbers shown on the admin dashboard.
- */
 import { describe, expect, it } from 'vitest'
 import { detectThemes, getNiceTicks, getOrdersPerDay, getPopularItems, summarizeFeedback } from './analytics.js'
 
@@ -13,7 +10,7 @@ const orders = [
   order(0, 'cancelled', 99, [{ itemId: 'b', quantity: 9 }]),
   order(1, 'delivered', 20, [{ itemId: 'b', quantity: 1 }]),
   order(6, 'delivered', 10, [{ itemId: 'a', quantity: 1 }]),
-  order(9, 'delivered', 50, [{ itemId: 'b', quantity: 5 }]), // outside the 7-day window
+  order(9, 'delivered', 50, [{ itemId: 'b', quantity: 5 }]),
 ]
 const menu = [
   { id: 'a', name: 'Alfredo', category: 'mains' },

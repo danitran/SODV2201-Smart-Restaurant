@@ -1,12 +1,3 @@
-/*
- * tokens.css — design tokens (CSS custom properties) used by every other
- * stylesheet. Change a colour or size here and it updates everywhere.
- *
- * Palette, named after the kitchen:
- *   linen     page background          basil     available / vegetarian / success
- *   ink       main text                parmesan  today's special / ratings
- *   tomato    main actions             slate     the specials board
- */
 :root {
   --color-linen: #f4f5f1;
   --color-surface: #ffffff;

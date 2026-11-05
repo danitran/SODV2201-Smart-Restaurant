@@ -1,17 +1,7 @@
-/**
- * ErrorBoundary.jsx — catches errors thrown while rendering a page, so one
- * broken component shows a friendly message instead of a blank white screen.
- *
- * React only supports error boundaries as class components:
- *   getDerivedStateFromError() switches to the fallback UI
- *   componentDidCatch()        logs the details for the developer
- *
- * The layouts give it key={location.pathname}, so moving to another page
- * creates a fresh boundary and clears the error.
- */
 import { Component } from 'react'
 import { Link } from 'react-router'
 
+// Error boundaries must be class components.
 export class ErrorBoundary extends Component {
   constructor(props) {
     super(props)

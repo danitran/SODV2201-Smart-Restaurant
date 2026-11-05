@@ -1,18 +1,3 @@
-/**
- * AdminDashboard.jsx — today's numbers, sales charts and a customer feedback
- * summary, all calculated from the orders and reviews in RestaurantContext.
- *
- *   Stat tiles          orders and sales today, orders in the kitchen,
- *                       event requests waiting, average rating
- *   Period filter       "Last 7 days" (orders per day) or "Last 4 weeks"
- *                       (orders per week). It scopes everything below it.
- *   Most ordered        top 5 dishes in the period
- *   Customer feedback   star distribution, a written summary of what people
- *                       praise and complain about, and the latest comments
- *
- * "Reset demo data" puts the original sample data back (handy before
- * recording the demo video).
- */
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { useRestaurant } from '../../context/RestaurantContext.js'
@@ -47,12 +32,10 @@ export default function AdminDashboard() {
   const [confirmReset, setConfirmReset] = useState(false)
   const [resetting, setResetting] = useState(false)
 
-  // ── Today (not affected by the period filter) ──
   const today = getTodayStats(orders, now)
   const waitingEvents = reservations.filter((reservation) => reservation.status === 'pending').length
   const allFeedback = summarizeFeedback(feedback)
 
-  // ── Selected period ──
   const { days, label: periodLabel } = PERIODS[period]
   const periodOrders = getOrdersInLastDays(orders, days, now).filter((order) => order.status !== 'cancelled')
   const series = period === 'week' ? getOrdersPerDay(orders, 7, now) : getOrdersPerWeek(orders, 4, now)

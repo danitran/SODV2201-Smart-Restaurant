@@ -1,11 +1,3 @@
-/**
- * AdminReservations.jsx — manage table bookings and special events.
- *
- * - Filters: status, booking type, upcoming or past.
- * - Bookings are grouped by date.
- * - Approve moves an event request from "pending" to "confirmed"; Cancel
- *   asks for confirmation first. Both notify the customer.
- */
 import { useState } from 'react'
 import { useRestaurant } from '../../context/RestaurantContext.js'
 import { useToast } from '../../context/ToastContext.js'
@@ -44,9 +36,8 @@ export default function AdminReservations() {
         (when === 'upcoming' ? isUpcoming(reservation, now) : !isUpcoming(reservation, now)),
     ),
   )
-  if (when === 'past') filtered.reverse() // most recent first
+  if (when === 'past') filtered.reverse()
 
-  // Group bookings by date: { '2026-11-02': [...], ... } (keeps the sort order)
   const byDate = {}
   for (const reservation of filtered) {
     byDate[reservation.date] = [...(byDate[reservation.date] ?? []), reservation]

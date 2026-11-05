@@ -1,14 +1,3 @@
-/**
- * GuestCheck.jsx — an order summary drawn like a paper restaurant bill.
- * Used on the cart, checkout and order tracking pages.
- *
- * Props:
- *   title     e.g. "Your order" or "Order ORD-1043"
- *   lines     [{ itemId, name, quantity, price }]
- *   totals    { subtotal, deliveryFee, tax, total } from calculateTotals()
- *   type      'delivery' | 'pickup' (changes the delivery row)
- *   children  optional extra content at the bottom (buttons, notes)
- */
 import { formatPrice } from '../../utils/format.js'
 import { PRICING } from '../../data/restaurantInfo.js'
 

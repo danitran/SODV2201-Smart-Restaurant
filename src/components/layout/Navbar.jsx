@@ -1,12 +1,3 @@
-/**
- * Navbar.jsx — the customer header: logo, page links, notifications, cart
- * and sign in / sign out.
- *
- * - NavLink adds the "active" class to the link of the current page.
- * - The cart count comes from CartContext, the user from AuthContext, so the
- *   header updates instantly when either changes.
- * - On small screens the links fold into a toggle menu (menuOpen state).
- */
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'

@@ -1,15 +1,3 @@
-/**
- * CustomerLayout.jsx — the frame around every customer page.
- *
- * React Router renders the current page where <Outlet /> is. The header,
- * footer and the update watcher stay mounted while pages change.
- *
- * Also inside:
- *   - ChatWidget: the AI assistant, available on every customer page
- *   - ScrollToTop: jump to the top when the URL changes
- *   - UpdateWatcher: pops up a toast when the restaurant changes one of this
- *     customer's orders or bookings (for example from the admin tab)
- */
 import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { useAuth } from '../../context/AuthContext.js'
@@ -32,8 +20,6 @@ function UpdateWatcher() {
   const { ownerId } = useAuth()
   const { notifications } = useRestaurant()
   const { showToast } = useToast()
-  // Ids we have already seen. Starts with everything that existed on load,
-  // so old notifications do not pop up again.
   const seen = useRef(null)
 
   useEffect(() => {

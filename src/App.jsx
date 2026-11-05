@@ -1,26 +1,3 @@
-/**
- * App.jsx — the route table (React Router).
- *
- * Layout routes: <CustomerLayout /> draws the header and footer once and
- * renders the matching child page in its <Outlet />.
- *
- *   /               Home
- *   /menu           Menu (search + filters)
- *   /menu/:itemId   MenuItemDetail (the :itemId part is read with useParams)
- *   /cart           Cart (change quantities, delivery or pickup)
- *   /checkout       Checkout form
- *   /orders/:orderId OrderStatus (confirmation + live tracking)
- *   /reservations   Reservations (tables and special events)
- *   /login, /register  sign in / create an account
- *   /account        Account (protected: signed-in users only)
- *
- *   /admin/...      admin pages inside <AdminLayout /> (protected: role "admin")
- *     /admin               AdminDashboard (stats, charts, feedback summary)
- *     /admin/orders        AdminOrders (kitchen board, status updates, history)
- *     /admin/reservations  AdminReservations (approve or cancel bookings)
- *     /admin/menu          AdminMenu (create, edit, delete dishes, availability, special)
- *   *               NotFound (any URL that matches nothing else)
- */
 import { Route, Routes } from 'react-router'
 import { AdminLayout } from './components/layout/AdminLayout.jsx'
 import { CustomerLayout } from './components/layout/CustomerLayout.jsx'

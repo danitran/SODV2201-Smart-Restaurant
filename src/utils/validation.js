@@ -1,11 +1,3 @@
-/**
- * validation.js — form rules shared by the pages (instant feedback) and the
- * services (final check before saving, like a real back end would do).
- *
- * Every validate…() function returns an object of field → error message.
- * An empty object means the form is valid. Example:
- *   validateCheckout({ name: '' }) → { name: 'Enter your name.', ... }
- */
 import { CATEGORIES, DIETARY_TAGS, PRICING, RESERVATION_RULES } from '../data/restaurantInfo.js'
 import { getTimeSlots, isSlotInPast } from './reservations.js'
 import { addDays, parseDateInput, toDateInputValue } from './format.js'
@@ -18,20 +10,17 @@ export function isValidEmail(email = '') {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(email).trim())
 }
 
-/** Accepts 403-555-0123, (403) 555 0123, +1 403 555 0123 … (10 digits, optional leading 1). */
 export function isValidPhone(phone = '') {
   const digits = digitsOnly(phone)
   return digits.length === 10 || (digits.length === 11 && digits.startsWith('1'))
 }
 
-/** Shared checks for name / email / phone used by several forms. */
 function validateContact({ name = '', email = '', phone = '' }, errors) {
   if (name.trim().length < 2) errors.name = 'Enter your name (at least 2 letters).'
   if (!isValidEmail(email)) errors.email = 'Enter a valid email, for example name@example.com.'
   if (!isValidPhone(phone)) errors.phone = 'Enter a 10-digit phone number, for example 403-555-0123.'
 }
 
-/** Checkout form: contact details, address for delivery, minimum delivery order. */
 export function validateCheckout(form, { subtotal = 0 } = {}) {
   const errors = {}
   validateContact(form, errors)
@@ -50,7 +39,6 @@ export function validateCheckout(form, { subtotal = 0 } = {}) {
   return errors
 }
 
-/** Reservation form: date/time in the future and inside opening hours, party size limits. */
 export function validateReservation(form, now = new Date()) {
   const errors = {}
   validateContact(form, errors)
@@ -88,7 +76,6 @@ export function validateReservation(form, now = new Date()) {
   return errors
 }
 
-/** Admin menu form. existingItems is used to block duplicate names. */
 export function validateMenuItem(item, existingItems = []) {
   const errors = {}
   const name = (item.name ?? '').trim()
@@ -112,7 +99,6 @@ export function validateMenuItem(item, existingItems = []) {
   return errors
 }
 
-/** Sign-up form. */
 export function validateRegistration(form) {
   const errors = {}
   validateContact(form, errors)
@@ -121,7 +107,6 @@ export function validateRegistration(form) {
   return errors
 }
 
-/** Profile form on the account page (email cannot be changed there). */
 export function validateProfile(form) {
   const errors = {}
   if ((form.name ?? '').trim().length < 2) errors.name = 'Enter your name (at least 2 letters).'
@@ -129,7 +114,6 @@ export function validateProfile(form) {
   return errors
 }
 
-/** Feedback form on a delivered order. */
 export function validateFeedback({ rating, comment = '' }) {
   const errors = {}
   if (!Number.isInteger(Number(rating)) || rating < 1 || rating > 5) errors.rating = 'Pick 1 to 5 stars.'

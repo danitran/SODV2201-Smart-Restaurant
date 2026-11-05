@@ -1,14 +1,3 @@
-/**
- * MenuFilters.jsx — search box, dietary checkboxes, price slider and sort.
- *
- * Props (data down, events up):
- *   filters        current filter values (from the URL)
- *   onChange(obj)  called with only the values that changed
- *   priceCeiling   highest value of the price slider
- *   savedDiets     the signed-in customer's dietary preferences (optional)
- *   onReset()      clears every filter
- *   isOpen         on phones the panel only shows when this is true
- */
 import { DIETARY_TAGS } from '../../data/restaurantInfo.js'
 import { SORT_OPTIONS } from '../../utils/menuFilters.js'
 import { formatPrice } from '../../utils/format.js'

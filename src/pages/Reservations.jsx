@@ -1,13 +1,3 @@
-/**
- * Reservations.jsx — book a table, or request a special event (birthday
- * party, corporate gathering…), and see your own bookings.
- *
- * - Tables are confirmed immediately; events wait for admin approval.
- * - The time list disables slots that have passed today or are full.
- * - After booking, a confirmation panel replaces the form and a
- *   notification is added to the bell in the header.
- * - "Your bookings" updates live when the restaurant approves or cancels.
- */
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext.js'
 import { useRestaurant } from '../context/RestaurantContext.js'
@@ -44,7 +34,7 @@ export default function Reservations() {
   const [errors, setErrors] = useState({})
   const [formError, setFormError] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const [booked, setBooked] = useState(null) // the reservation just created
+  const [booked, setBooked] = useState(null)
   const now = useNow()
 
   const isEvent = form.type === 'event'
@@ -58,7 +48,6 @@ export default function Reservations() {
     if (errors[name]) setErrors((current) => ({ ...current, [name]: undefined }))
   }
 
-  // Switching between table and event keeps the party size inside the new limits.
   const chooseType = (type) => {
     const nextLimits = type === 'event' ? RESERVATION_RULES.event : RESERVATION_RULES.table
     setForm((current) => ({

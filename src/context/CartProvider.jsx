@@ -1,13 +1,3 @@
-/**
- * CartProvider.jsx — the shopping cart.
- *
- * The cart only stores { itemId, quantity }. Names, prices and availability
- * are looked up in the live menu every render, so if an admin changes a price
- * or marks a dish sold out, the cart shows it straight away.
- * The cart is saved in localStorage so it survives a page refresh.
- * It also remembers whether the customer wants delivery or pickup
- * (orderType), because the delivery fee changes the totals on every page.
- */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CartContext } from './CartContext.js'
 import { useRestaurant } from './RestaurantContext.js'
@@ -20,6 +10,7 @@ const clamp = (quantity) => Math.min(PRICING.maxQuantityPerItem, Math.max(0, Mat
 
 export function CartProvider({ children }) {
   const { menu } = useRestaurant()
+  // Only ids and quantities are stored; names, prices and availability come from the live menu.
   const [entries, setEntries] = useState(() => {
     const saved = readJSON(CART_KEY, [])
     return Array.isArray(saved) ? saved : []
@@ -29,13 +20,12 @@ export function CartProvider({ children }) {
     readJSON(ORDER_TYPE_KEY, 'delivery') === 'pickup' ? 'pickup' : 'delivery',
   )
 
-  // Save the cart and the order type whenever they change.
   useEffect(() => {
     try {
       writeJSON(CART_KEY, entries)
       writeJSON(ORDER_TYPE_KEY, orderType)
     } catch {
-      // The cart still works for this visit even if it cannot be saved.
+      // Storage disabled: the cart still works until the page closes.
     }
   }, [entries, orderType])
 
@@ -65,7 +55,6 @@ export function CartProvider({ children }) {
 
   const clearCart = useCallback(() => setEntries([]), [])
 
-  // Join each cart entry with the current menu item.
   const lines = useMemo(
     () =>
       entries.map((entry) => {

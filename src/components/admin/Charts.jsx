@@ -1,26 +1,7 @@
-/**
- * Charts.jsx — two small charts drawn with plain HTML and CSS (no chart library).
- *
- * <ColumnChart data label />  vertical columns, e.g. orders per day.
- *    Hover or keyboard focus on a column shows a tooltip; only the highest and
- *    the most recent columns carry a value label, the rest are in the tooltip
- *    and in the "Show as a table" view (so no value depends on hovering).
- *
- * <BarList items />           horizontal bars with the value at the tip,
- *    e.g. most ordered dishes or the number of reviews per star rating.
- *
- * Bar sizes and gridline positions are calculated from the data, so they are
- * the one thing set with inline styles (a CSS custom property such as
- * --bar-height); everything else lives in styles/admin.css.
- */
 import { useState } from 'react'
 import { formatPrice } from '../../utils/format.js'
 import { getNiceTicks } from '../../utils/analytics.js'
 
-/**
- * data: [{ key, label, detail, count, revenue }]
- * label: what one column measures, for screen readers ("orders")
- */
 export function ColumnChart({ data, caption }) {
   const [active, setActive] = useState(null)
   const ticks = getNiceTicks(Math.max(...data.map((entry) => entry.count)))
@@ -102,7 +83,6 @@ export function ColumnChart({ data, caption }) {
   )
 }
 
-/** items: [{ id, label, value, valueLabel? }]; variant 'rating' uses the star colour. */
 export function BarList({ items, variant = 'default', label }) {
   const max = Math.max(1, ...items.map((item) => item.value))
   return (

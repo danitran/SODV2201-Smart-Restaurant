@@ -1,15 +1,3 @@
-/**
- * main.jsx — entry point (Vite's version of index.js).
- *
- * The providers wrap <App /> so every component can reach shared state
- * with a hook instead of passing props through many levels:
- *
- *   BrowserRouter       URL ↔ page (React Router)
- *   ToastProvider       pop-up messages             → useToast()
- *   RestaurantProvider  menu, orders, reservations  → useRestaurant()
- *   AuthProvider        signed-in user              → useAuth()
- *   CartProvider        shopping cart               → useCart()  (needs the menu, so it sits inside RestaurantProvider)
- */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
