@@ -1,13 +1,12 @@
 import { Link } from 'react-router'
 import { formatPrice } from '../../utils/format.js'
 import { DishBadges } from '../common/Badges.jsx'
+import { DishImage } from '../common/DishImage.jsx'
 
 export function MenuItemRow({ item, inCart = 0, onAdd }) {
   return (
     <article className={`menu-row ${item.available ? '' : 'is-soldout'}`} aria-labelledby={`dish-${item.id}`}>
-      <span className="dish-tile" aria-hidden="true">
-        {item.emoji}
-      </span>
+      <DishImage item={item} className="dish-tile" sizes="96px" />
 
       <div className="menu-row__body">
         <h3 className="menu-row__title" id={`dish-${item.id}`}>

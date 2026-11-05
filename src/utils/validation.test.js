@@ -70,6 +70,12 @@ describe('validateMenuItem', () => {
     expect(validateMenuItem({ ...dish, id: 'chicken-alfredo', name: 'Chicken Alfredo' }, existing)).toEqual({})
   })
 
+  it('accepts an empty or https photo link and rejects anything else', () => {
+    expect(validateMenuItem({ ...dish, image: '' }, existing)).toEqual({})
+    expect(validateMenuItem({ ...dish, image: 'https://images.unsplash.com/photo-1?w=800' }, existing)).toEqual({})
+    expect(validateMenuItem({ ...dish, image: 'javascript:alert(1)' }, existing)).toHaveProperty('image')
+  })
+
   it('rejects a zero price and an unknown category', () => {
     const errors = validateMenuItem({ ...dish, price: '0', category: 'snacks' }, existing)
     expect(errors).toHaveProperty('price')

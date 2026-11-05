@@ -6,6 +6,7 @@ import { useToast } from '../context/ToastContext.js'
 import { CATEGORIES, DIETARY_TAGS } from '../data/restaurantInfo.js'
 import { formatPrice } from '../utils/format.js'
 import { DishBadges } from '../components/common/Badges.jsx'
+import { DishImage } from '../components/common/DishImage.jsx'
 import { EmptyState } from '../components/common/Feedback.jsx'
 import { Icon } from '../components/common/Icon.jsx'
 import { QuantityStepper } from '../components/common/QuantityStepper.jsx'
@@ -54,8 +55,8 @@ export default function MenuItemDetail() {
       </Link>
 
       <article className="dish-detail">
-        <div className="dish-detail__art" aria-hidden="true">
-          {item.emoji}
+        <div className="dish-detail__art">
+          <DishImage item={item} alt={item.name} loading="eager" sizes="(max-width: 800px) 100vw, 520px" />
         </div>
 
         <div className="dish-detail__info">
@@ -102,9 +103,7 @@ export default function MenuItemDetail() {
             {related.map((other) => (
               <li key={other.id}>
                 <Link to={`/menu/${other.id}`} className="related-dish">
-                  <span className="dish-tile" aria-hidden="true">
-                    {other.emoji}
-                  </span>
+                  <DishImage item={other} className="dish-tile" sizes="56px" />
                   <span>
                     <strong>{other.name}</strong>
                     <span className="muted small">{formatPrice(other.price)}</span>

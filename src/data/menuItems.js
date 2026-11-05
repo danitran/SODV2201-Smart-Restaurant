@@ -1,3 +1,5 @@
+const photo = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=75`
+
 export const MENU_ITEMS = [
   {
     id: 'garden-salad',
@@ -8,7 +10,7 @@ export const MENU_ITEMS = [
     ingredients: ['Mixed greens', 'Cherry tomatoes', 'Cucumber', 'Shaved carrot', 'Balsamic vinaigrette'],
     price: 9.99,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '🥗',
+    image: photo('photo-1605291535126-2d71fea483c1'),
   },
   {
     id: 'caesar-salad',
@@ -19,7 +21,7 @@ export const MENU_ITEMS = [
     ingredients: ['Romaine', 'Parmesan', 'Garlic croutons', 'Anchovy Caesar dressing', 'Lemon'],
     price: 11.49,
     dietary: [],
-    emoji: '🥬',
+    image: photo('photo-1746211224437-8340316b288d'),
   },
   {
     id: 'garlic-bread',
@@ -29,7 +31,7 @@ export const MENU_ITEMS = [
     ingredients: ['Baguette', 'Garlic butter', 'Parsley', 'Parmesan'],
     price: 6.99,
     dietary: ['vegetarian'],
-    emoji: '🥖',
+    image: photo('photo-1556008531-57e6eefc7be4'),
   },
   {
     id: 'bruschetta',
@@ -39,7 +41,7 @@ export const MENU_ITEMS = [
     ingredients: ['Grilled sourdough', 'Roma tomatoes', 'Basil', 'Garlic', 'Extra-virgin olive oil'],
     price: 8.99,
     dietary: ['vegetarian', 'vegan', 'dairy-free'],
-    emoji: '🍅',
+    image: photo('photo-1761315412730-a6f67208b78d'),
   },
   {
     id: 'calamari',
@@ -49,7 +51,7 @@ export const MENU_ITEMS = [
     ingredients: ['Squid', 'Seasoned flour', 'Lemon aioli', 'Parsley'],
     price: 13.49,
     dietary: ['dairy-free'],
-    emoji: '🦑',
+    image: photo('photo-1763467940825-d067fb3baf22'),
   },
   {
     id: 'tomato-soup',
@@ -59,7 +61,7 @@ export const MENU_ITEMS = [
     ingredients: ['San Marzano tomatoes', 'Basil', 'Onion', 'Garlic', 'Cream'],
     price: 7.49,
     dietary: ['vegetarian', 'gluten-free'],
-    emoji: '🍲',
+    image: photo('photo-1581347860118-588a42326161'),
   },
 
   {
@@ -70,7 +72,7 @@ export const MENU_ITEMS = [
     ingredients: ['Fettuccine', 'Grilled chicken breast', 'Cream', 'Parmesan', 'Garlic', 'Butter'],
     price: 18.99,
     dietary: [],
-    emoji: '🍝',
+    image: photo('photo-1748012199672-2a94ab9cbb19'),
     isSpecial: true,
   },
   {
@@ -81,7 +83,7 @@ export const MENU_ITEMS = [
     ingredients: ['Penne', 'Zucchini', 'Bell peppers', 'Cherry tomatoes', 'Spinach', 'Garlic', 'Olive oil', 'Basil'],
     price: 16.49,
     dietary: ['vegetarian', 'vegan', 'dairy-free'],
-    emoji: '🥦',
+    image: photo('photo-1680678242896-a8e64cb95b62'),
   },
   {
     id: 'margherita-pizza',
@@ -91,7 +93,7 @@ export const MENU_ITEMS = [
     ingredients: ['Wood-fired dough', 'San Marzano tomato sauce', 'Fresh mozzarella', 'Basil', 'Olive oil'],
     price: 15.99,
     dietary: ['vegetarian'],
-    emoji: '🍕',
+    image: photo('photo-1772494047915-79042d21eb09'),
   },
   {
     id: 'diavola-pizza',
@@ -101,7 +103,7 @@ export const MENU_ITEMS = [
     ingredients: ['Wood-fired dough', 'Tomato sauce', 'Mozzarella', 'Spicy salami', 'Chili flakes', 'Hot honey'],
     price: 17.49,
     dietary: [],
-    emoji: '🌶️',
+    image: photo('photo-1777891257674-36c5532e6654'),
     spicy: true,
   },
   {
@@ -112,7 +114,7 @@ export const MENU_ITEMS = [
     ingredients: ['Gluten-free penne', 'Beef and pork ragù', 'Tomato', 'Carrot', 'Celery', 'Red wine'],
     price: 17.99,
     dietary: ['gluten-free', 'dairy-free'],
-    emoji: '🍝',
+    image: photo('photo-1621996346565-e3dbc646d9a9'),
   },
   {
     id: 'grilled-salmon',
@@ -122,7 +124,7 @@ export const MENU_ITEMS = [
     ingredients: ['Atlantic salmon', 'Lemon herb oil', 'Roasted potatoes', 'Asparagus'],
     price: 24.99,
     dietary: ['gluten-free', 'dairy-free'],
-    emoji: '🐟',
+    image: photo('photo-1758384077234-f91a311dcc12'),
   },
   {
     id: 'ribeye-steak',
@@ -132,7 +134,7 @@ export const MENU_ITEMS = [
     ingredients: ['Alberta ribeye (10 oz)', 'Garlic mashed potatoes', 'Seasonal vegetables', 'Peppercorn jus'],
     price: 32.99,
     dietary: ['gluten-free'],
-    emoji: '🥩',
+    image: photo('photo-1654879259483-af42804bd2bb'),
   },
 
   {
@@ -143,7 +145,7 @@ export const MENU_ITEMS = [
     ingredients: ['Dark chocolate', 'Butter', 'Eggs', 'Sugar', 'Flour', 'Vanilla ice cream'],
     price: 8.99,
     dietary: ['vegetarian'],
-    emoji: '🍫',
+    image: photo('photo-1762631176731-42672d735b85'),
   },
   {
     id: 'tiramisu',
@@ -153,7 +155,7 @@ export const MENU_ITEMS = [
     ingredients: ['Ladyfingers', 'Espresso', 'Mascarpone', 'Cocoa', 'Eggs', 'Sugar'],
     price: 8.49,
     dietary: ['vegetarian'],
-    emoji: '🍰',
+    image: photo('photo-1768225385872-03945d45a0d3'),
   },
   {
     id: 'strawberry-cheesecake',
@@ -163,7 +165,7 @@ export const MENU_ITEMS = [
     ingredients: ['Cream cheese', 'Graham crust', 'Strawberries', 'Sugar', 'Eggs'],
     price: 7.99,
     dietary: ['vegetarian'],
-    emoji: '🍓',
+    image: photo('photo-1702923406588-1183a9ae4713'),
   },
   {
     id: 'mango-sorbet',
@@ -173,7 +175,7 @@ export const MENU_ITEMS = [
     ingredients: ['Mango purée', 'Sugar', 'Lime'],
     price: 6.49,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '🥭',
+    image: photo('photo-1592247620763-4d87bbf7d303'),
   },
 
   {
@@ -184,7 +186,7 @@ export const MENU_ITEMS = [
     ingredients: ['Lemon juice', 'Cane sugar', 'Water', 'Mint'],
     price: 4.49,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '🍋',
+    image: photo('photo-1695490454828-f8df9109da43'),
   },
   {
     id: 'peach-iced-tea',
@@ -194,7 +196,7 @@ export const MENU_ITEMS = [
     ingredients: ['Black tea', 'Peach', 'Cane sugar'],
     price: 4.29,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '🍑',
+    image: photo('photo-1616434963473-030c8f1ce663'),
   },
   {
     id: 'cappuccino',
@@ -204,7 +206,7 @@ export const MENU_ITEMS = [
     ingredients: ['Espresso', 'Steamed milk'],
     price: 4.99,
     dietary: ['vegetarian', 'gluten-free'],
-    emoji: '☕',
+    image: photo('photo-1717768023941-78186ff7a5d7'),
   },
   {
     id: 'blood-orange-soda',
@@ -214,7 +216,7 @@ export const MENU_ITEMS = [
     ingredients: ['Blood orange juice', 'Sparkling water', 'Cane sugar'],
     price: 4.29,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '🍊',
+    image: photo('photo-1713517681904-9f5979261e92'),
   },
   {
     id: 'sparkling-water',
@@ -224,6 +226,6 @@ export const MENU_ITEMS = [
     ingredients: ['Sparkling mineral water'],
     price: 2.99,
     dietary: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
-    emoji: '💧',
+    image: photo('photo-1532517287333-fbb66d7e6006'),
   },
 ]

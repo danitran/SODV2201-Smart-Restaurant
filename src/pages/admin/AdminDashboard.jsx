@@ -123,7 +123,7 @@ export default function AdminDashboard() {
           {topDishes.length ? (
             <BarList
               label="Most ordered dishes"
-              items={topDishes.map((dish) => ({ id: dish.id, label: `${dish.emoji} ${dish.name}`, value: dish.quantity }))}
+              items={topDishes.map((dish) => ({ id: dish.id, label: dish.name, value: dish.quantity }))}
             />
           ) : (
             <p className="muted small">No orders in this period yet.</p>

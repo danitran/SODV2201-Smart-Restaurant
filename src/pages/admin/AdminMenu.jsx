@@ -6,6 +6,7 @@ import { getErrorMessage } from '../../services/apiError.js'
 import { matchesQuery } from '../../utils/menuFilters.js'
 import { formatPrice } from '../../utils/format.js'
 import { DishBadges } from '../../components/common/Badges.jsx'
+import { DishImage } from '../../components/common/DishImage.jsx'
 import { EmptyState } from '../../components/common/Feedback.jsx'
 import { Icon } from '../../components/common/Icon.jsx'
 import { ConfirmDialog, Modal } from '../../components/common/Modal.jsx'
@@ -118,9 +119,7 @@ export default function AdminMenu() {
                 <tr key={item.id} className={item.available ? '' : 'is-muted'}>
                   <td>
                     <div className="dish-cell">
-                      <span className="dish-tile dish-tile--small" aria-hidden="true">
-                        {item.emoji}
-                      </span>
+                      <DishImage item={item} className="dish-tile dish-tile--small" sizes="44px" />
                       <div>
                         <strong>{item.name}</strong>
                         <DishBadges item={item} showSpecial={false} />

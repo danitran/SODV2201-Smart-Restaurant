@@ -43,7 +43,7 @@ export async function placeOrder({ ownerId, userId = null, customer, type, items
       if (!Number.isInteger(qty) || qty < 1 || qty > PRICING.maxQuantityPerItem) {
         throw new ApiError(`Quantity for ${item.name} must be between 1 and ${PRICING.maxQuantityPerItem}.`)
       }
-      return { itemId, name: item.name, emoji: item.emoji, price: item.price, quantity: qty }
+      return { itemId, name: item.name, price: item.price, quantity: qty }
     })
 
     const totals = calculateTotals(lines, type)

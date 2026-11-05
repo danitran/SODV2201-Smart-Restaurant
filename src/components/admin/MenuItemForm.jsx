@@ -3,15 +3,14 @@ import { CATEGORIES, DIETARY_TAGS } from '../../data/restaurantInfo.js'
 import { getErrorMessage } from '../../services/apiError.js'
 import { focusFirstError } from '../../utils/dom.js'
 import { hasErrors, validateMenuItem } from '../../utils/validation.js'
+import { DishImage } from '../common/DishImage.jsx'
 import { SelectField, TextAreaField, TextField } from '../common/FormFields.jsx'
-
-const EMOJI_CHOICES = ['🍝', '🍕', '🥗', '🥬', '🥖', '🍅', '🦑', '🍲', '🥦', '🌶️', '🐟', '🥩', '🍗', '🍔', '🫕', '🍫', '🍰', '🍓', '🥭', '🍨', '🍋', '🍑', '☕', '🍊', '💧', '🍷', '🍽️']
 
 const toFormValues = (item) => ({
   name: item?.name ?? '',
   category: item?.category ?? 'mains',
   price: item ? String(item.price) : '',
-  emoji: item?.emoji ?? '🍽️',
+  image: item?.image ?? '',
   description: item?.description ?? '',
   ingredients: item?.ingredients.join(', ') ?? '',
   dietary: item?.dietary ?? [],
@@ -89,14 +88,19 @@ export function MenuItemForm({ initial, existingItems, onSubmit, onCancel }) {
           onChange={handleChange}
           error={errors.price}
         />
-        <SelectField
-          label="Picture"
-          name="emoji"
-          options={EMOJI_CHOICES.map((emoji) => ({ value: emoji, label: emoji }))}
-          value={values.emoji}
+      </div>
+      <div className="photo-field">
+        <TextField
+          label="Photo URL (optional)"
+          name="image"
+          type="url"
+          placeholder="https://images.unsplash.com/…"
+          value={values.image}
           onChange={handleChange}
-          hint="Shown as the dish image on the menu."
+          error={errors.image}
+          hint="Leave empty to show the default plate picture."
         />
+        <DishImage item={{ image: values.image.trim() }} className="photo-field__preview" sizes="120px" />
       </div>
       <TextAreaField
         label="Description"

@@ -5,6 +5,7 @@ import { useToast } from '../context/ToastContext.js'
 import { PRICING, RESTAURANT } from '../data/restaurantInfo.js'
 import { getPopularItems } from '../utils/analytics.js'
 import { formatPrice } from '../utils/format.js'
+import { DishImage } from '../components/common/DishImage.jsx'
 import { Icon } from '../components/common/Icon.jsx'
 
 function SpecialsBoard({ dish, isSpecial, onAdd }) {
@@ -12,9 +13,7 @@ function SpecialsBoard({ dish, isSpecial, onAdd }) {
   return (
     <aside className="specials-board" aria-labelledby="special-title">
       <p className="specials-board__label">{isSpecial ? "Today's special" : "Chef's pick"}</p>
-      <span className="specials-board__emoji" aria-hidden="true">
-        {dish.emoji}
-      </span>
+      <DishImage item={dish} alt={dish.name} className="specials-board__photo" loading="eager" sizes="(max-width: 900px) 100vw, 480px" />
       <h2 id="special-title" className="specials-board__name">
         {dish.name}
       </h2>
@@ -88,9 +87,7 @@ export default function Home() {
         <ol className="popular-list">
           {popular.map((dish) => (
             <li key={dish.id} className="popular-dish">
-              <span className="dish-tile" aria-hidden="true">
-                {dish.emoji}
-              </span>
+              <DishImage item={dish} className="dish-tile" sizes="56px" />
               <div className="popular-dish__info">
                 <Link to={`/menu/${dish.id}`} className="popular-dish__name">
                   {dish.name}

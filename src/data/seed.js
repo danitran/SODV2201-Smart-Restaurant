@@ -127,7 +127,7 @@ export function createSeedDatabase(now = new Date()) {
   const makeDraft = ({ createdAt, lines, type, status, customer, ownerId = SEED_OWNER, userId = null }) => {
     const items = lines.map(([itemId, quantity]) => {
       const item = menuById.get(itemId)
-      return { itemId, name: item.name, emoji: item.emoji, price: item.price, quantity }
+      return { itemId, name: item.name, price: item.price, quantity }
     })
     const totals = calculateTotals(items, type)
     drafts.push({
@@ -307,7 +307,7 @@ export function createSeedDatabase(now = new Date()) {
   })
 
   return {
-    version: 1,
+    version: 2,
     seededAt: now.toISOString(),
     menu,
     users,

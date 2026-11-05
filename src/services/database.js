@@ -1,8 +1,8 @@
 import { createSeedDatabase } from '../data/seed.js'
 import { readJSON, writeJSON } from './storage.js'
 
-export const DB_KEY = 'basil-brick:db:v1'
-const DB_VERSION = 1
+export const DB_KEY = 'basil-brick:db:v2'
+const DB_VERSION = 2
 
 const isValidDatabase = (db) =>
   db && db.version === DB_VERSION && Array.isArray(db.menu) && Array.isArray(db.orders) && Array.isArray(db.users)

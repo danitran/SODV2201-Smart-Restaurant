@@ -453,3 +453,56 @@
   background: var(--color-linen);
   font-size: var(--text-xs);
 }
+
+.dish-img {
+  display: block;
+  object-fit: cover;
+  background: #13244a;
+}
+
+img.dish-tile {
+  padding: 0;
+  font-size: 0;
+}
+
+.menu-row img.dish-tile {
+  width: 104px;
+  height: 78px;
+}
+
+.specials-board__photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: var(--space-3) 0;
+  border-radius: var(--radius-md);
+}
+
+.dish-detail__art {
+  overflow: hidden;
+}
+
+.dish-detail__art .dish-img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.photo-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.photo-field__preview {
+  width: 120px;
+  height: 90px;
+  margin-top: 26px;
+  border-radius: var(--radius-md);
+}

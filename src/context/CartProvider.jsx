@@ -64,7 +64,6 @@ export function CartProvider({ children }) {
           quantity: entry.quantity,
           item,
           name: item?.name ?? 'Item no longer on the menu',
-          emoji: item?.emoji ?? '🍽️',
           price: item?.price ?? 0,
           isOrderable: Boolean(item?.available),
         }

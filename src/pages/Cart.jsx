@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext.js'
 import { PRICING } from '../data/restaurantInfo.js'
 import { amountToFreeDelivery, calculateTotals } from '../utils/pricing.js'
 import { formatPrice } from '../utils/format.js'
+import { DishImage } from '../components/common/DishImage.jsx'
 import { EmptyState } from '../components/common/Feedback.jsx'
 import { Icon } from '../components/common/Icon.jsx'
 import { QuantityStepper } from '../components/common/QuantityStepper.jsx'
@@ -60,9 +61,7 @@ export default function Cart() {
           <ul className="cart-lines">
             {lines.map((line) => (
               <li key={line.itemId} className={`cart-line ${line.isOrderable ? '' : 'is-blocked'}`}>
-                <span className="dish-tile" aria-hidden="true">
-                  {line.emoji}
-                </span>
+                <DishImage item={line.item} className="dish-tile" sizes="56px" />
                 <div className="cart-line__info">
                   {line.item ? <Link to={`/menu/${line.itemId}`}>{line.name}</Link> : <span>{line.name}</span>}
                   <span className="small muted">

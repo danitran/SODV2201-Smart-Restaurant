@@ -7,6 +7,7 @@ import { useToast } from '../../context/ToastContext.js'
 import { SUGGESTED_QUESTIONS } from '../../data/aiDataset.js'
 import { getAssistantReply } from '../../services/aiService.js'
 import { formatPrice } from '../../utils/format.js'
+import { DishImage } from '../common/DishImage.jsx'
 import { Icon } from '../common/Icon.jsx'
 
 const THINKING_MS = 650
@@ -107,7 +108,7 @@ export function ChatWidget() {
                       if (!item) return null
                       return (
                         <li key={id} className="chat__dish">
-                          <span aria-hidden="true">{item.emoji}</span>
+                          <DishImage item={item} className="chat__thumb" sizes="40px" />
                           <Link to={`/menu/${item.id}`}>{item.name}</Link>
                           <span className="muted">{formatPrice(item.price)}</span>
                           <button

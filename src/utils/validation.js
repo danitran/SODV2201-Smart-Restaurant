@@ -93,6 +93,8 @@ export function validateMenuItem(item, existingItems = []) {
   if (item.price === '' || Number.isNaN(price) || price <= 0) errors.price = 'Enter a price above $0.'
   else if (price > 500) errors.price = 'Price looks too high. Enter $500 or less.'
   if ((item.description ?? '').trim().length < 10) errors.description = 'Add a short description (10+ characters).'
+  const image = (item.image ?? '').trim()
+  if (image && !/^(https:\/\/|\/)\S+$/.test(image)) errors.image = 'Use a full https:// link to the photo.'
 
   const unknownTags = (item.dietary ?? []).filter((tag) => !DIETARY_TAGS.some((known) => known.id === tag))
   if (unknownTags.length > 0) errors.dietary = `Unknown dietary tag: ${unknownTags.join(', ')}.`

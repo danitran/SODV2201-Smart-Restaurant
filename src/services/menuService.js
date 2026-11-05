@@ -16,7 +16,7 @@ function normalizeMenuItem(input) {
     ingredients: ingredients.map((part) => part.trim()).filter(Boolean),
     price: roundMoney(input.price),
     dietary: [...(input.dietary ?? [])],
-    emoji: input.emoji?.trim() || '🍽️',
+    image: (input.image ?? '').trim(),
     available: input.available !== false,
     spicy: Boolean(input.spicy),
   }

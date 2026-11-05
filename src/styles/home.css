@@ -63,12 +63,6 @@
   font-size: var(--text-xl);
 }
 
-.specials-board__emoji {
-  display: block;
-  font-size: 4.5rem;
-  line-height: 1.1;
-}
-
 .specials-board__name {
   margin: var(--space-2) 0;
   color: #fff;
