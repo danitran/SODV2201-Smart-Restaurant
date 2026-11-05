@@ -104,7 +104,7 @@ export default function AdminReservations() {
       </div>
 
       {filtered.length === 0 ? (
-        <EmptyState icon="📅" title="No bookings match these filters">
+        <EmptyState icon="calendar" title="No bookings match these filters">
           Try another status or switch between upcoming and past.
         </EmptyState>
       ) : (

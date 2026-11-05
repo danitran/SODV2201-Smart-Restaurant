@@ -7,38 +7,40 @@ import { getPopularItems } from '../utils/analytics.js'
 import { formatPrice } from '../utils/format.js'
 import { DishImage } from '../components/common/DishImage.jsx'
 import { Icon } from '../components/common/Icon.jsx'
+import { DishCard } from '../components/menu/DishCard.jsx'
 
-function SpecialsBoard({ dish, isSpecial, onAdd }) {
+function SpecialFeature({ dish, isSpecial, onAdd }) {
   if (!dish) return null
   return (
-    <aside className="specials-board" aria-labelledby="special-title">
-      <p className="specials-board__label">{isSpecial ? "Today's special" : "Chef's pick"}</p>
-      <DishImage item={dish} alt={dish.name} className="specials-board__photo" loading="eager" sizes="(max-width: 900px) 100vw, 480px" />
-      <h2 id="special-title" className="specials-board__name">
-        {dish.name}
-      </h2>
-      <p className="specials-board__text">{dish.description}</p>
-      <div className="specials-board__footer">
-        <span className="specials-board__price">{formatPrice(dish.price)}</span>
-        <button type="button" className="button button--basil" onClick={() => onAdd(dish)} disabled={!dish.available}>
-          {dish.available ? 'Add to order' : 'Sold out today'}
-        </button>
+    <figure className="special">
+      <div className="special__stage">
+        <Link to={`/menu/${dish.id}`} className="special__media gilt-frame" tabIndex={-1} aria-hidden="true" data-cursor="view">
+          <DishImage item={dish} loading="eager" sizes="(max-width: 900px) 92vw, 480px" />
+        </Link>
+        <span className="special__price">{formatPrice(dish.price)}</span>
       </div>
-      <Link className="specials-board__link" to={`/menu/${dish.id}`}>
-        Ingredients and details
-      </Link>
-    </aside>
+      <figcaption className="special__caption">
+        <p className="special__label">{isSpecial ? "Today's special" : "Chef's pick"}</p>
+        <h2 className="special__name">{dish.name}</h2>
+        <p className="special__text">{dish.description}</p>
+        <div className="special__actions">
+          <button type="button" className="button" onClick={() => onAdd(dish)} disabled={!dish.available}>
+            {dish.available ? 'Add to order' : 'Sold out today'}
+          </button>
+          <Link to={`/menu/${dish.id}`}>Ingredients and details</Link>
+        </div>
+      </figcaption>
+    </figure>
   )
 }
 
 export default function Home() {
   const { menu, orders } = useRestaurant()
-  const { addItem } = useCart()
+  const { addItem, getQuantity } = useCart()
   const { showToast } = useToast()
 
   const popular = getPopularItems(orders, menu, { limit: 4 })
   const special = menu.find((item) => item.isSpecial)
-  const boardDish = special ?? popular[0]
 
   const handleAdd = (dish) => {
     addItem(dish.id)
@@ -75,7 +77,7 @@ export default function Home() {
               </li>
             </ul>
           </div>
-          <SpecialsBoard dish={boardDish} isSpecial={Boolean(special)} onAdd={handleAdd} />
+          <SpecialFeature dish={special ?? popular[0]} isSpecial={Boolean(special)} onAdd={handleAdd} />
         </div>
       </section>
 
@@ -84,26 +86,16 @@ export default function Home() {
           <h2 id="popular-title">Most ordered this month</h2>
           <Link to="/menu">See the full menu</Link>
         </div>
-        <ol className="popular-list">
+        <ol className="popular-grid">
           {popular.map((dish) => (
-            <li key={dish.id} className="popular-dish">
-              <DishImage item={dish} className="dish-tile" sizes="56px" />
-              <div className="popular-dish__info">
-                <Link to={`/menu/${dish.id}`} className="popular-dish__name">
-                  {dish.name}
-                </Link>
-                <span className="muted small">Ordered {dish.quantity} times</span>
-              </div>
-              <span className="popular-dish__price">{formatPrice(dish.price)}</span>
-              <button
-                type="button"
-                className="button button--small"
-                onClick={() => handleAdd(dish)}
-                disabled={!dish.available}
-                aria-label={`Add ${dish.name} to your order`}
-              >
-                {dish.available ? 'Add' : 'Sold out'}
-              </button>
+            <li key={dish.id}>
+              <DishCard
+                item={dish}
+                compact
+                meta={`Ordered ${dish.quantity} times`}
+                inCart={getQuantity(dish.id)}
+                onAdd={handleAdd}
+              />
             </li>
           ))}
         </ol>

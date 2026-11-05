@@ -94,7 +94,7 @@ export default function AdminMenu() {
       </div>
 
       {visible.length === 0 ? (
-        <EmptyState icon="🔍" title="No dishes match">
+        <EmptyState icon="search" title="No dishes match">
           Try another search word or category.
         </EmptyState>
       ) : (

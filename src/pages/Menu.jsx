@@ -16,7 +16,7 @@ import {
 import { pluralize } from '../utils/format.js'
 import { EmptyState } from '../components/common/Feedback.jsx'
 import { MenuFilters } from '../components/menu/MenuFilters.jsx'
-import { MenuItemRow } from '../components/menu/MenuItemRow.jsx'
+import { DishCard } from '../components/menu/DishCard.jsx'
 
 export default function Menu() {
   const { menu } = useRestaurant()
@@ -55,10 +55,15 @@ export default function Menu() {
     showToast(`${item.name} was added to your order.`)
   }
 
-  const renderRows = (items) =>
-    items.map((item) => (
-      <MenuItemRow key={item.id} item={item} inCart={getQuantity(item.id)} onAdd={handleAdd} />
-    ))
+  const renderGrid = (items) => (
+    <ul className="dish-grid">
+      {items.map((item) => (
+        <li key={item.id}>
+          <DishCard item={item} inCart={getQuantity(item.id)} onAdd={handleAdd} />
+        </li>
+      ))}
+    </ul>
+  )
 
   return (
     <div className="container page">
@@ -110,7 +115,7 @@ export default function Menu() {
 
           {results.length === 0 && (
             <EmptyState
-              icon="🔍"
+              icon="search"
               title="No dishes match these filters"
               actions={
                 <button type="button" className="button" onClick={resetFilters}>
@@ -128,10 +133,10 @@ export default function Menu() {
                   <h2 id={`group-${group.id}`} className="menu-group__title">
                     {group.label}
                   </h2>
-                  {renderRows(group.items)}
+                  {renderGrid(group.items)}
                 </section>
               ))
-            : results.length > 0 && <div className="menu-group">{renderRows(results)}</div>}
+            : results.length > 0 && renderGrid(results)}
         </section>
       </div>
     </div>

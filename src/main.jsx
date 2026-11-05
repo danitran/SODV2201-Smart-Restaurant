@@ -6,7 +6,8 @@ import { ToastProvider } from './context/ToastProvider.jsx'
 import { RestaurantProvider } from './context/RestaurantProvider.jsx'
 import { AuthProvider } from './context/AuthProvider.jsx'
 import { CartProvider } from './context/CartProvider.jsx'
-import '@fontsource/caprasimo'
+import '@fontsource-variable/bodoni-moda'
+import '@fontsource-variable/jost'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(

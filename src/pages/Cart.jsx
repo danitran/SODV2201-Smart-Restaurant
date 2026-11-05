@@ -17,7 +17,7 @@ export default function Cart() {
     return (
       <div className="container page">
         <EmptyState
-          icon="🛍️"
+          icon="bag"
           title="Your order is empty"
           actions={
             <Link className="button" to="/menu">

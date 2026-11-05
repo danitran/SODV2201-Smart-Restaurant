@@ -12,14 +12,14 @@ export function StatusBadge({ kind = 'order', status, type }) {
   return <span className={`status status--${status}`}>{label}</span>
 }
 
-export function DishBadges({ item, showSpecial = true }) {
+export function DishBadges({ item, showSpecial = true, showSoldOut = true }) {
   const tags = DIETARY_TAGS.filter((tag) => item.dietary.includes(tag.id))
-  const hasAny = tags.length > 0 || item.spicy || (showSpecial && item.isSpecial) || !item.available
+  const hasAny = tags.length > 0 || item.spicy || (showSpecial && item.isSpecial) || (showSoldOut && !item.available)
   if (!hasAny) return null
 
   return (
     <div className="badge-row">
-      {!item.available && <span className="badge badge--soldout">Sold out</span>}
+      {showSoldOut && !item.available && <span className="badge badge--soldout">Sold out</span>}
       {showSpecial && item.isSpecial && <span className="badge badge--special">Today&apos;s special</span>}
       {tags.map((tag) => (
         <span key={tag.id} className="badge badge--diet" title={tag.label}>

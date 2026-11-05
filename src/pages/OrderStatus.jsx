@@ -23,7 +23,7 @@ export default function OrderStatus() {
     return (
       <div className="container page">
         <EmptyState
-          icon="🧾"
+          icon="ticket"
           title={`We could not find order ${orderId}`}
           actions={
             <Link className="button" to="/menu">

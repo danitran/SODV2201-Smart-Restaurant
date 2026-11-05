@@ -1,3 +1,5 @@
+import { Icon } from './Icon.jsx'
+
 export function Spinner({ label = 'Loading…' }) {
   return (
     <span className="spinner" role="status">
@@ -6,11 +8,11 @@ export function Spinner({ label = 'Loading…' }) {
   )
 }
 
-export function EmptyState({ icon = '🍽️', title, children, actions }) {
+export function EmptyState({ icon = 'utensils', title, children, actions }) {
   return (
     <div className="empty-state">
       <span className="empty-state__icon" aria-hidden="true">
-        {icon}
+        <Icon name={icon} size={26} />
       </span>
       <h2>{title}</h2>
       {children && <p>{children}</p>}

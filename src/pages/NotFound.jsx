@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="container page">
       <EmptyState
-        icon="🧭"
+        icon="compass"
         title="We could not find that page"
         actions={
           <>

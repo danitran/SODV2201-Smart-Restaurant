@@ -136,7 +136,7 @@ export default function Account() {
               <span className="muted small">{myOrders.length} orders</span>
             </div>
             {myOrders.length === 0 ? (
-              <EmptyState icon="🧾" title="No orders yet" actions={<Link className="button" to="/menu">Browse the menu</Link>}>
+              <EmptyState icon="ticket" title="No orders yet" actions={<Link className="button" to="/menu">Browse the menu</Link>}>
                 Orders you place while signed in will be listed here.
               </EmptyState>
             ) : (

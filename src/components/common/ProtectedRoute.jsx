@@ -14,7 +14,7 @@ export function ProtectedRoute({ role, children }) {
     return (
       <div className="container page">
         <EmptyState
-          icon="🔒"
+          icon="lock"
           title="This area is for restaurant staff"
           actions={
             <>

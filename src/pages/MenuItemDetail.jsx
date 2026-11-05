@@ -24,7 +24,7 @@ export default function MenuItemDetail() {
     return (
       <div className="container page">
         <EmptyState
-          icon="🍽️"
+          icon="utensils"
           title="This dish is not on the menu"
           actions={
             <Link className="button" to="/menu">
@@ -55,7 +55,7 @@ export default function MenuItemDetail() {
       </Link>
 
       <article className="dish-detail">
-        <div className="dish-detail__art">
+        <div className="dish-detail__art gilt-frame">
           <DishImage item={item} alt={item.name} loading="eager" sizes="(max-width: 800px) 100vw, 520px" />
         </div>
 

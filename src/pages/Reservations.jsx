@@ -11,6 +11,7 @@ import { focusFirstError } from '../utils/dom.js'
 import { getSeatsLeft, getTimeSlots, isSlotInPast } from '../utils/reservations.js'
 import { hasErrors, validateReservation } from '../utils/validation.js'
 import { SelectField, TextAreaField, TextField } from '../components/common/FormFields.jsx'
+import { Icon } from '../components/common/Icon.jsx'
 import { ReservationList } from '../components/reservations/ReservationList.jsx'
 
 const blankForm = (user) => ({
@@ -127,7 +128,7 @@ export default function Reservations() {
         {booked ? (
           <section className="panel booking-done" aria-labelledby="booked-title">
             <p className="booking-done__icon" aria-hidden="true">
-              {booked.status === 'confirmed' ? '✓' : '⏳'}
+              <Icon name={booked.status === 'confirmed' ? 'check' : 'clock'} size={28} />
             </p>
             <h2 id="booked-title">{booked.status === 'confirmed' ? 'Your table is booked' : 'Your event request was sent'}</h2>
             <p>

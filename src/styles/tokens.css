@@ -1,28 +1,68 @@
 :root {
-  --color-linen: #f4f5f1;
-  --color-surface: #ffffff;
-  --color-ink: #1e2b24;
-  --color-ink-soft: #46534c;
-  --color-muted: #5f6b64;
-  --color-line: #dce1db;
-  --color-line-strong: #c4cbc3;
+  color-scheme: dark;
 
-  --color-tomato: #c2362b;
-  --color-tomato-dark: #9e2a21;
-  --color-tomato-tint: #fbeae7;
-  --color-basil: #2e6a4c;
-  --color-basil-dark: #22513a;
-  --color-basil-tint: #e4efe8;
-  --color-parmesan: #e9b949;
-  --color-parmesan-tint: #fbf3dc;
-  --color-slate: #24312b;
-  --color-chalk: #eef1ec;
-  --color-amber: #8a5a00;
-  --color-amber-tint: #fdf1d8;
-  --color-danger: #b42318;
+  --navy-950: #0a1429;
+  --navy-900: #0f1d3a;
+  --navy-850: #13244a;
+  --navy-800: #172b54;
+  --navy-700: #22396a;
+  --gold-200: #f1e2b6;
+  --gold-300: #e6cd8a;
+  --gold-400: #d6b25e;
+  --gold-500: #c39a3f;
+  --gold-700: #7a5d1d;
+  --ivory-50: #fbf8f2;
+  --ivory-100: #f5eee1;
+  --ivory-200: #ebe1cd;
 
-  --font-display: 'Caprasimo', Georgia, 'Times New Roman', serif;
-  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --bg: var(--navy-900);
+  --bg-deep: var(--navy-950);
+  --surface: #142650;
+  --surface-raised: #1b315f;
+  --field: #0b1730;
+  --text: var(--ivory-100);
+  --text-soft: #d8cfbf;
+  --text-muted: #a9a090;
+  --line: rgba(214, 178, 94, 0.18);
+  --line-strong: rgba(214, 178, 94, 0.42);
+  --gold: var(--gold-400);
+  --gold-bright: var(--gold-300);
+  --link: var(--gold-300);
+
+  --btn-bg: var(--gold-400);
+  --btn-bg-hover: var(--gold-300);
+  --btn-ink: var(--navy-950);
+  --btn2-ink: var(--gold-200);
+  --btn2-line: rgba(214, 178, 94, 0.55);
+  --btn2-hover: rgba(214, 178, 94, 0.12);
+
+  --danger: #ef9478;
+  --danger-bg: rgba(239, 148, 120, 0.12);
+  --danger-line: rgba(239, 148, 120, 0.45);
+  --success: #9fd3b0;
+  --success-bg: rgba(159, 211, 176, 0.12);
+  --info: var(--gold-300);
+  --info-bg: rgba(214, 178, 94, 0.12);
+
+  --st-pending: var(--gold-300);
+  --st-pending-bg: rgba(214, 178, 94, 0.14);
+  --st-preparing: #a8c7f0;
+  --st-preparing-bg: rgba(120, 160, 230, 0.16);
+  --st-ready: #f3b37a;
+  --st-ready-bg: rgba(243, 179, 122, 0.14);
+  --st-done: #9fd3b0;
+  --st-done-bg: rgba(159, 211, 176, 0.14);
+  --st-cancelled: #b9b2a5;
+  --st-cancelled-bg: rgba(185, 178, 165, 0.12);
+
+  --paper: var(--ivory-100);
+  --paper-ink: var(--navy-900);
+  --paper-muted: #6b6455;
+  --paper-line: #d3c6aa;
+  --overlay: rgba(4, 9, 20, 0.72);
+
+  --font-display: 'Bodoni Moda Variable', 'Bodoni Moda', Didot, 'Bodoni 72', Georgia, serif;
+  --font-body: 'Jost Variable', Jost, Futura, 'Century Gothic', system-ui, sans-serif;
   --font-ticket: ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 
   --text-xs: 0.8125rem;
@@ -41,17 +81,62 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
-  --space-8: 4rem;
+  --space-8: 4.5rem;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 18px;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
   --radius-pill: 999px;
 
-  --shadow-raised: 0 1px 2px rgba(30, 43, 36, 0.08), 0 10px 30px -18px rgba(30, 43, 36, 0.45);
-  --shadow-ticket: 0 1px 0 rgba(30, 43, 36, 0.06), 0 14px 28px -20px rgba(30, 43, 36, 0.55);
+  --shadow-card: 0 24px 48px -28px rgba(0, 0, 0, 0.85);
+  --shadow-lift: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold-bright);
 
-  --container: 1160px;
-  --header-height: 68px;
-  --focus-ring: 0 0 0 3px var(--color-surface), 0 0 0 5px var(--color-tomato);
+  --container: 1200px;
+  --header-height: 76px;
+}
+
+.admin-shell {
+  color-scheme: light;
+
+  --bg: #f6f1e7;
+  --surface: #fffdf8;
+  --surface-raised: #f1e9da;
+  --field: #fffdf8;
+  --text: var(--navy-900);
+  --text-soft: #34405a;
+  --text-muted: #5d6475;
+  --line: #e4dac6;
+  --line-strong: #cdbf9f;
+  --link: var(--gold-700);
+
+  --btn-bg: var(--navy-900);
+  --btn-bg-hover: var(--navy-700);
+  --btn-ink: var(--ivory-100);
+  --btn2-ink: var(--navy-900);
+  --btn2-line: #cdbf9f;
+  --btn2-hover: #efe6d4;
+
+  --danger: #b3402a;
+  --danger-bg: #fbe9e3;
+  --danger-line: #efc2b4;
+  --success: #2f6b4a;
+  --success-bg: #e3f0e7;
+  --info: var(--gold-700);
+  --info-bg: #f7ecd2;
+
+  --st-pending: var(--gold-700);
+  --st-pending-bg: #f7ecd2;
+  --st-preparing: #24508f;
+  --st-preparing-bg: #e4ecf8;
+  --st-ready: #8a4b12;
+  --st-ready-bg: #fbe7d3;
+  --st-done: #2f6b4a;
+  --st-done-bg: #e3f0e7;
+  --st-cancelled: #5b5b5b;
+  --st-cancelled-bg: #eeeae2;
+
+  --overlay: rgba(10, 20, 41, 0.55);
+  --shadow-card: 0 1px 2px rgba(15, 29, 58, 0.06), 0 12px 28px -20px rgba(15, 29, 58, 0.35);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold-500);
 }

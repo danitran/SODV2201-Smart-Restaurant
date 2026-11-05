@@ -85,6 +85,18 @@ const ICONS = {
       <path d="M17 21V3c-2.5 1.5-3.5 4-3.5 7.5 0 2 1.5 3 3.5 3" />
     </>
   ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M15 9l-2 4-4 2 2-4 4-2z" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="9" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </>
+  ),
   ticket: (
     <>
       <path d="M5 3h14v18l-2.5-1.5L14 21l-2-1.5L10 21l-2.5-1.5L5 21V3z" />
@@ -117,9 +129,9 @@ export function Icon({ name, size = 20, label }) {
 export function LogoMark({ className = 'brand__mark' }) {
   return (
     <svg className={className} viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <rect width="64" height="64" rx="14" fill="#C2362B" />
-      <path d="M20 44c0-14 9-24 24-26-2 15-11 25-24 26z" fill="#F4F5F1" />
-      <path d="M22 42c6-6 11-11 18-20" stroke="#2E6A4C" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <circle cx="32" cy="32" r="30" fill="#0f1d3a" stroke="#d6b25e" strokeWidth="2.5" />
+      <path d="M20 43c0-13 8.5-21.5 22-23.5-2 13.5-10.5 22-22 23.5z" fill="#d6b25e" />
+      <path d="M22.5 40.5c5-5 9.5-9.5 15-17" stroke="#0f1d3a" strokeWidth="2.4" strokeLinecap="round" fill="none" />
     </svg>
   )
 }
