@@ -13,11 +13,14 @@ Assignment 1 is the front end: data is kept in the browser (localStorage) behind
 an async service layer that is ready to be pointed at a Node.js back end in the
 next assignment.
 
-| Customer | Admin |
-|---|---|
-| ![Home page with today's special](docs/screenshots/home.png) | ![Admin dashboard with charts and feedback summary](docs/screenshots/admin-dashboard.png) |
-| ![Menu filtered to vegetarian dishes](docs/screenshots/menu.png) | ![Kitchen board with order tickets](docs/screenshots/admin-orders.png) |
-| ![Live order tracking](docs/screenshots/order-tracking.png) | ![AI assistant answering sample questions](docs/screenshots/assistant.png) |
+## Design
+
+A warm navy and gold theme, built so the food is the brightest thing on the page.
+
+- **Colours:** deep navy backgrounds, gold for actions, prices and photo frames, warm ivory text. The admin dashboard uses the same palette on a light ivory background, which is easier to read in tables.
+- **Type:** Bodoni Moda (a revival of Bodoni's classic Italian typefaces) for headings and prices, Jost for everything else. Both are installed from npm, so they work offline.
+- **Dish photos:** every dish has a real photo from Unsplash, loaded from the Unsplash image CDN in several sizes. If a photo cannot load (offline, or a broken link entered by an admin), a gold plate placeholder is shown instead.
+- **3D effects:** on desktop a gold cursor trails the pointer and tips in 3D in the direction it moves, grows over buttons and links, and shows "View" over dish photos. Dish cards and the featured dish tilt toward the cursor with a moving highlight, and the price and gold frame float at different depths. The effects switch off on touch screens and when the device asks for reduced motion. The admin dashboard keeps the normal cursor.
 
 ---
 
@@ -33,7 +36,7 @@ npm run dev      # then open http://localhost:5173
 | Script | What it does |
 |---|---|
 | `npm run dev` | Start the development server with hot reload |
-| `npm test` | Run the 71 unit tests (Vitest) |
+| `npm test` | Run the 74 unit tests (Vitest) |
 | `npm run lint` | Check the code with Oxlint |
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build |
@@ -101,7 +104,7 @@ See [How the AI assistant works](#how-the-ai-assistant-works).
 
 | Requirement (Assignment 1) | Where |
 |---|---|
-| Browse the menu by category with descriptions, ingredients and prices | `pages/Menu.jsx`, `components/menu/MenuItemRow.jsx`, `pages/MenuItemDetail.jsx`, `data/menuItems.js` |
+| Browse the menu by category with descriptions, ingredients and prices | `pages/Menu.jsx`, `components/menu/DishCard.jsx`, `components/common/DishImage.jsx`, `pages/MenuItemDetail.jsx`, `data/menuItems.js` |
 | Filter or search by category, dietary restrictions or price | `components/menu/MenuFilters.jsx`, `utils/menuFilters.js` |
 | Order for delivery or pickup, manage the cart | `pages/Cart.jsx`, `context/CartProvider.jsx`, `components/orders/OrderTypePicker.jsx` |
 | Order confirmation and order status updates | `pages/Checkout.jsx`, `pages/OrderStatus.jsx`, `components/orders/OrderTracker.jsx`, `services/orderService.js` |
@@ -114,20 +117,20 @@ See [How the AI assistant works](#how-the-ai-assistant-works).
 | Admin manages reservations and events (approve or cancel) | `pages/admin/AdminReservations.jsx` |
 | Optional analytics: orders per day/week, popular items, feedback summary | `pages/admin/AdminDashboard.jsx`, `components/admin/Charts.jsx`, `utils/analytics.js` |
 | Error handling | `components/common/ErrorBoundary.jsx`, `services/apiError.js`, `utils/validation.js`, `pages/NotFound.jsx` |
-| Verifying operation | `*.test.js` files (71 tests), `npm run lint`, `npm run build` |
+| Verifying operation | `*.test.js` files (74 tests), `npm run lint`, `npm run build` |
 
 ### React concepts used
 
 | Concept | Examples |
 |---|---|
-| Components and props | `MenuItemRow` (item, inCart, onAdd), `GuestCheck` (lines, totals, type), `OrderTicket` |
+| Components and props | `DishCard` (item, inCart, onAdd, compact), `GuestCheck` (lines, totals, type), `OrderTicket` |
 | Callbacks from child to parent | `onAdd`, `onChange`, `onSubmit`, `onCancel`, `onAdvance` |
 | `useState` | forms, filters, chat messages, dialogs |
-| `useEffect` | real-time sync subscription, saving the cart, closing the bell on outside click, auto-scroll in chat |
-| `useRef` | uncontrolled sign-in form, `<dialog>` element, chat scroll and focus |
+| `useEffect` | real-time sync subscription, saving the cart, closing the bell on outside click, auto-scroll in chat, pointer listeners for the 3D effects |
+| `useRef` | uncontrolled sign-in form, `<dialog>` element, chat scroll and focus, the 3D cursor and tilting cards |
 | `useMemo` / `useCallback` | context values and actions in the providers |
 | Context API | `RestaurantProvider`, `AuthProvider`, `CartProvider`, `ToastProvider` + hooks `useRestaurant`, `useAuth`, `useCart`, `useToast` |
-| Custom hook | `hooks/useNow.js` |
+| Custom hooks | `hooks/useNow.js`, `hooks/useTilt.js` |
 | React Router | layout routes with `<Outlet />`, `NavLink`, `useParams`, `useSearchParams`, `useNavigate`, `useLocation`, `<Navigate />`, protected routes, 404 route |
 | Controlled vs uncontrolled inputs | controlled: checkout, booking, register, admin forms · uncontrolled: `Login.jsx` (`useRef`) |
 | Conditional rendering and lists | empty states, sold-out badges, status trackers, `map()` everywhere |
@@ -215,22 +218,23 @@ src/
 ├── components/
 │   ├── admin/              Charts, MenuItemForm, OrderTicket
 │   ├── chat/               ChatWidget (AI assistant)
-│   ├── common/             Badges, ErrorBoundary, Feedback (spinner, empty state),
-│   │                       FormFields, Icon, Modal/ConfirmDialog, ProtectedRoute,
-│   │                       QuantityStepper
+│   ├── common/             Badges, Cursor3D, DishImage, ErrorBoundary, Feedback
+│   │                       (spinner, empty state), FormFields, Icon,
+│   │                       Modal/ConfirmDialog, ProtectedRoute, QuantityStepper
 │   ├── layout/             CustomerLayout, AdminLayout, Navbar, Footer, NotificationBell
-│   ├── menu/               MenuFilters, MenuItemRow
+│   ├── menu/               DishCard, MenuFilters
 │   ├── orders/             GuestCheck (the bill), OrderTracker, OrderTypePicker, FeedbackForm
 │   └── reservations/       ReservationList
 ├── context/                Providers (.jsx) and their hooks (.js)
 ├── data/                   Restaurant rules, menu, AI dataset, seed data
-├── hooks/                  useNow
+├── hooks/                  useNow, useTilt
 ├── pages/                  Home, Menu, MenuItemDetail, Cart, Checkout, OrderStatus,
 │   │                       Reservations, Login, Register, Account, NotFound
 │   └── admin/              AdminDashboard, AdminOrders, AdminReservations, AdminMenu
 ├── services/               database, storage, apiError, network, auth, menu, order,
 │                           reservation, notification and AI services (+ tests)
-├── styles/                 tokens, base, layout, components, and one file per area
+├── styles/                 tokens (navy and gold palette), base, layout, components,
+│                           effects (3D cursor and tilt), and one file per area
 └── utils/                  format, pricing, validation, reservations, menuFilters,
                             analytics, ids, dom (+ tests)
 ```
@@ -249,11 +253,13 @@ src/
   message instead of a blank screen.
 - **Not found**: unknown URLs, deleted dishes and unknown order numbers all show
   a helpful empty state.
+- **Photos** that fail to load (offline, or a broken link) fall back to a
+  placeholder picture in `DishImage`.
 
 ## Testing
 
 ```bash
-npm test         # 71 unit tests
+npm test         # 74 unit tests
 npm run lint     # 0 warnings
 npm run build    # production build
 ```
@@ -267,7 +273,9 @@ localStorage) and the AI assistant, including all six sample questions.
 The Git history follows the build: project set-up and configuration, clean-up
 of the Vite starter, data layer and services, context providers, layout and
 routing, menu, cart and checkout, reservations, accounts, AI assistant, admin
-menu, orders and reservations, dashboard, tests and documentation.
+menu, orders and reservations, dashboard, tests and documentation. Later commits
+clean up comments, replace the emoji icons with real dish photos, restyle the app
+in navy and gold, and add the 3D cursor and tilt effects.
 
 ## Next: Assignment 2
 
@@ -279,5 +287,35 @@ from the server.
 
 ---
 
-*Basil & Brick is fictional. The display font is Caprasimo (SIL Open Font
-License), installed from npm. Dish pictures are emoji.*
+*Basil & Brick is fictional. Fonts: Bodoni Moda and Jost (SIL Open Font
+License), installed from npm. Dish photos: Unsplash, credited below.*
+
+## Photo credits
+
+Dish photos come from [Unsplash](https://unsplash.com) and are used under the
+[Unsplash License](https://unsplash.com/license).
+
+| Dish | Photographer |
+|---|---|
+| Garden Salad | [logan jeffrey](https://unsplash.com/photos/vegetable-salad-on-white-ceramic-plate-yiGU1vhY3l4) |
+| Caesar Salad | [Cliffer Rebelo](https://unsplash.com/photos/a-delicious-caesar-salad-ready-to-be-eaten-_SUBifWXat0) |
+| Garlic Bread | [Louis Hansel](https://unsplash.com/photos/garlic-bread-yl33be56sbg) |
+| Tomato Bruschetta | [Diego Arenas de Rodrigo](https://unsplash.com/photos/bruschetta-with-fresh-tomatoes-and-herbs-JK1Iog4H4u0) |
+| Crispy Calamari | [Julia Fiander](https://unsplash.com/photos/pile-of-fried-calamari-served-on-a-dark-plate-K7S_ZeCl9SI) |
+| Tomato Basil Soup | [sunorwind](https://unsplash.com/photos/tomato-soup-in-white-ceramic-bowl-xBaa9lSMvP0) |
+| Chicken Alfredo | [Sanket Deorukhkar](https://unsplash.com/photos/chicken-with-a-creamy-sauce-and-roasted-bread-q6AUy_Q7JDw) |
+| Vegetable Pasta | [R Eris](https://unsplash.com/photos/a-white-plate-topped-with-pasta-and-vegetables-fzWWN44yN_w) |
+| Margherita Pizza | [Brelyn Bashrum](https://unsplash.com/photos/a-margherita-pizza-with-fresh-basil-and-tomatoes-OHKYsQUnLwQ) |
+| Spicy Diavola Pizza | [Husien Bisky](https://unsplash.com/photos/a-whole-pepperoni-pizza-on-a-dark-background-fHX9cScxh4o) |
+| Gluten-Free Penne Bolognese | [Ben Lei](https://unsplash.com/photos/penne-pasta-with-meat-sauce-flFd8L7_B3g) |
+| Grilled Salmon | [Bundo Kim](https://unsplash.com/photos/salmon-fillet-with-asparagus-and-dill-sauce-WWFPlYf1gLY) |
+| Ribeye Steak | [Paras Kapoor](https://unsplash.com/photos/a-piece-of-meat-on-a-plate-6tY9wWLbL8k) |
+| Chocolate Lava Cake | [joe boshra](https://unsplash.com/photos/molten-chocolate-lava-cake-with-ice-cream-and-powdered-sugar-poR8qapX99o) |
+| Classic Tiramisu | [phoebe lynch](https://unsplash.com/photos/a-delicious-tiramisu-dessert-with-cocoa-powder-kBRJ6dhhmYQ) |
+| Strawberry Cheesecake | [A Studios](https://unsplash.com/photos/a-cheesecake-with-strawberries-on-top-of-it-rtYkyWeX-KI) |
+| Mango Sorbet | [Maria Petersson](https://unsplash.com/photos/yellow-cream-on-white-ceramic-bowl-Rw5vxZiM9rk) |
+| Fresh Lemonade | [Mohammad Abbasi](https://unsplash.com/photos/a-glass-of-lemonade-on-a-wooden-table-Ic08Jw3XysQ) |
+| Peach Iced Tea | [Ashley Winkler](https://unsplash.com/photos/clear-drinking-glass-with-orange-liquid-3yioyf0-SMY) |
+| Cappuccino | [Ebru Doğan](https://unsplash.com/photos/a-cappuccino-on-a-saucer-on-a-table-P6P56sEEqn8) |
+| Blood Orange Soda | [Poul Hoang](https://unsplash.com/photos/a-blood-orange-drink-with-a-black-straw-in-a-glass-9tV4oU3Syug) |
+| Sparkling Water | [Thao LEE (hthaostudio.com)](https://unsplash.com/photos/splash-of-water-in-drinking-glass-with-sliced-lemon-WRfgYQWezh8) |
